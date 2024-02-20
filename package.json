@@ -33,6 +33,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"firebase": "^10.8.0",
+		"firebase-admin": "^12.0.0",
 		"twilio": "^4.22.0"
 	}
 }
