@@ -16,5 +16,7 @@ import { firebaseConfig } from "./settings.js";
 const app = initializeApp(firebaseConfig);
 //const analytics = getAnalytics(app);
 
-const Firebase_DB = getDatabase(app);
+const FirebaseDB = getDatabase(app);
+
+export { FirebaseDB } 
 
