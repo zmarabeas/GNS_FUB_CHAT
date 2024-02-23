@@ -1,5 +1,17 @@
 
 <script>
+  import { ref, onValue } from "firebase/database";
+  import { FirebaseDB as db } from "../../config/firebase.js";
+
+
+  const usersRef = ref(db, "users");
+  onValue(usersRef, (snapshot) => {
+    const data = snapshot.val();
+    console.log(data);
+  });
+  console.log(db);
+
+
 	let name = null;
 	let birthday = null;
 
@@ -24,7 +36,7 @@
 <style>
 	.main {
 		display: flex;
-		//justify-content: center;
+    //justify-content: center;
 		align-items: center;
 		flex-direction: column;
 		min-width: 100vw;
