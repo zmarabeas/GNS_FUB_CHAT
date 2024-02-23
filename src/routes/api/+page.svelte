@@ -1,7 +1,7 @@
 
 <script>
   import { ref, onValue } from "firebase/database";
-  import { FirebaseDB as db } from "../../config/firebase.js";
+  import { FirebaseDB as db } from "../../config/firebase/firebase.js";
 
 
   const usersRef = ref(db, "users");

@@ -1,5 +1,5 @@
 import { getDatabase, ref, set } from "firebase/database";
-import { FirebaseDB as db } from "../../../config/firebase.js";
+import { FirebaseDB as db } from "../../../config/firebase/firebase.js";
 
 function writeUserData(name: string, birthday: string, userId: string = 'default') {
   set(ref(db, 'users', userId), {

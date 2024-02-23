@@ -13,7 +13,7 @@
 // }
 
 import { getDatabase, ref, set, update } from "firebase/database";
-import { FirebaseDB as db } from "../../../config/firebase.js";
+import { FirebaseDB as db } from "../../../config/firebase/firebase.js";
 
 async function writeUserData(name: string, birthday: string, userId: string = 'default') {
   update(ref(db, 'users'), {

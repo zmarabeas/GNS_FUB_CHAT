@@ -11,7 +11,7 @@ client = Client(account_sid, auth_token)
 
 message = client.messages \
                 .create(
-                     body="And thank you for helping! Can you send a response to this message for a test?",
+                     body="i",
                      from_='+12363019250', #(236) 301-9250
                     #  to='+14038360075'
                      to='+16043468192'

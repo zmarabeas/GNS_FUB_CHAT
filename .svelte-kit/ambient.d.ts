@@ -44,7 +44,6 @@ declare module '$env/static/private' {
 	export const XDG_SEAT_PATH: string;
 	export const npm_config_userconfig: string;
 	export const npm_config_local_prefix: string;
-	export const CINNAMON_VERSION: string;
 	export const DBUS_SESSION_BUS_ADDRESS: string;
 	export const P9K_TTY: string;
 	export const npm_config_engine_strict: string;
@@ -52,6 +51,7 @@ declare module '$env/static/private' {
 	export const COLOR: string;
 	export const QT_QPA_PLATFORMTHEME: string;
 	export const LOGNAME: string;
+	export const DESKTOP_AUTOSTART_ID: string;
 	export const _: string;
 	export const _P9K_SSH_TTY: string;
 	export const npm_config_prefix: string;
@@ -99,6 +99,7 @@ declare module '$env/static/private' {
 	export const _P9K_TTY: string;
 	export const npm_config_global_prefix: string;
 	export const npm_command: string;
+	export const TMUX_PLUGIN_MANAGER_PATH: string;
 	export const TMUX_PANE: string;
 	export const VTE_VERSION: string;
 	export const INIT_CWD: string;
@@ -153,7 +154,6 @@ declare module '$env/dynamic/private' {
 		XDG_SEAT_PATH: string;
 		npm_config_userconfig: string;
 		npm_config_local_prefix: string;
-		CINNAMON_VERSION: string;
 		DBUS_SESSION_BUS_ADDRESS: string;
 		P9K_TTY: string;
 		npm_config_engine_strict: string;
@@ -161,6 +161,7 @@ declare module '$env/dynamic/private' {
 		COLOR: string;
 		QT_QPA_PLATFORMTHEME: string;
 		LOGNAME: string;
+		DESKTOP_AUTOSTART_ID: string;
 		_: string;
 		_P9K_SSH_TTY: string;
 		npm_config_prefix: string;
@@ -208,6 +209,7 @@ declare module '$env/dynamic/private' {
 		_P9K_TTY: string;
 		npm_config_global_prefix: string;
 		npm_command: string;
+		TMUX_PLUGIN_MANAGER_PATH: string;
 		TMUX_PANE: string;
 		VTE_VERSION: string;
 		INIT_CWD: string;

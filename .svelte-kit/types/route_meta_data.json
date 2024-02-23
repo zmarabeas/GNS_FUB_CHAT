@@ -8,5 +8,8 @@
 	],
 	"/api/test": [
 		"src/routes/api/test/+server.ts"
+	],
+	"/api/twilio": [
+		"src/routes/api/twilio/+server.js"
 	]
 }
