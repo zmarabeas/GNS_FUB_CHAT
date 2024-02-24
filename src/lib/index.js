@@ -1,6 +1,6 @@
-import { FirebaseDB } from '../config/firebase/firebase.js';
-import TwilioClient from '../config/twilio/twilio.js';
-import { twilioNumberCA, twilioConsole } from '../config/twilio/twilio.js';
+import { TwilioClient } from '../config/twilio/twilio.js';
+import { twilioNumberCA } from '../config/twilio/twilio.js';
+
 
 export const sendSMS = async (req, res) => {
   const { body, to } = req.body;

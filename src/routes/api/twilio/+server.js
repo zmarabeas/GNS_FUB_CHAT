@@ -1,13 +1,19 @@
 import { createRequire } from 'module';
 
 const require = createRequire(import.meta.url);
-// const twiml = require('twilio').twiml.MessagingResponse;
 const { MessagingResponse } = require('twilio').twiml;
 
+export function POST({ request }) 
+{
+  const data = request.json();
+  console.log(data);
+  const twiml = new MessagingResponse();
+  twiml.message('The Robots are coming! Head for the hills!');
 
-const twiml = new MessagingResponse();
+  console.log(twiml.toString());
+  // return new Response(twiml.toString(), {
+  //   headers: { 'content-type': 'text/xml' },
+  // });
+}
 
-twiml.message('The Robots are coming! Head for the hills!');
-
-console.log(twiml.toString());
 

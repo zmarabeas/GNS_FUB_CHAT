@@ -9,8 +9,8 @@
 // LIVE KEY
 const accountSid = 'ACf8ccd164ab96b9ba138f68c1a4ab7b91';
 const authToken = '3d0fa3c0837c04348dad5f29ed564661';
-const twilioNumberCA = '+12363019250';
-const twilioNumberUS = '+18888575941';
-const twilioConsole = '+18777804236';
+// const twilioNumberCA = '+12363019250';
+// const twilioNumberUS = '+18888575941';
+// const twilioConsole = '+18777804236';
 
-export { accountSid, authToken, twilioNumberCA, twilioNumberUS, twilioConsole};
+export { accountSid, authToken };
