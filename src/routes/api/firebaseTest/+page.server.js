@@ -13,7 +13,7 @@ export function GET(request)
     };
     return ret;
     //return new Response(`Hello ${firstName} ${lastName}`);
-//}
+}
 
 
 
