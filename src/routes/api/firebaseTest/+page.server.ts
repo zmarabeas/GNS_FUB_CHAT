@@ -7,6 +7,7 @@ export function GET({ request } : any)
     let userId : string = request.searchParams.get('userId') ?? 'Default';
     console.log('GET request received');
     writeUserData(firstName, lastName, userId);
+    return { firstName, lastName, userId };
     //return new Response(`Hello ${firstName} ${lastName}`);
 }
 

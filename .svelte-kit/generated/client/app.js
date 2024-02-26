@@ -14,7 +14,7 @@ export const server_loads = [];
 export const dictionary = {
 		"/": [2],
 		"/api": [3],
-		"/api/firebaseTest": [4],
+		"/api/firebaseTest": [~4],
 		"/api/twilio": [5]
 	};
 

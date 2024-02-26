@@ -2,10 +2,13 @@
 
 // const require = createRequire(import.meta.url);
 // const { MessagingResponse } = require('twilio').twiml;
+//
+import { json } from '@sveltejs/kit';
 
-export function POST({ request }) 
+
+export async function POST({ request }) 
 {
-  const data = request.json();
+  const data = await request.json();
   console.log(data);
 
   //return success

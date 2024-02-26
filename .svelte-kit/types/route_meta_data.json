@@ -4,7 +4,7 @@
 		"src/routes/api/+server.ts"
 	],
 	"/api/firebaseTest": [
-		"src/routes/api/firebaseTest/+server.ts"
+		"src/routes/api/firebaseTest/+page.server.ts"
 	],
 	"/api/test": [
 		"src/routes/api/test/+server.ts"
