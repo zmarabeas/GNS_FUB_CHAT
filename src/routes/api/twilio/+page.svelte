@@ -1,5 +1,29 @@
 <script>
-  import { sendSMS } from '../../../lib/index.js';
+  {/* import { sendSMS } from '../../../lib/utils.js'; */}
+  {/* import { TwilioClient } from '../../../config/twilio/twilio.js'; */}
+  {/* import { twilioNumberCA } from '../../../config/twilio/twilio.js'; */}
+
+  const accountSid = 'ACf8ccd164ab96b9ba138f68c1a4ab7b91';
+  const authToken = '3d0fa3c0837c04348dad5f29ed564661';
+  const twilioNumberCA = '+12363019250';
+  const twilioNumberUS = '+18888575941';
+  const twilioConsole = '+18777804236';
+
+  {/* import { createRequire } from 'module'; */}
+
+  {/* const require = createRequire(import.meta.url); */}
+  {/* const { MessagingResponse } = require('twilio').twiml; */}
+  {/* const twilio = require('twilio'); */}
+  {/* const client = twilio(accountSid, authToken); */}
+
+  {/* import twilio from 'twilio'; */}
+  {/* console.log(twilio); */}
+
+  {/* const TwilioClient = twilio(accountSid, authToken); */}
+
+
+
+
 
   let phone = null;
   let message = null;
