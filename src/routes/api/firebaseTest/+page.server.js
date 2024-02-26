@@ -1,6 +1,6 @@
 // import { writeUserData } from './index.js';
 
-export function GET({request}) 
+export function GET(request) 
 {
     let firstName= request.searchParams.get('firstName') ?? 'Default';
     let lastName= request.searchParams.get('lastName') ?? 'Default';
