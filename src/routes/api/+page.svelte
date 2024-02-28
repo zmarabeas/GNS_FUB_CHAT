@@ -15,10 +15,26 @@
 	let name = null;
 	let birthday = null;
 
-	function handleSubmit(){
-		setItem(name, birthday);	
+  let twilioURL = "https://gnschat-9300.twil.io/welcome";
+
+	async function handleSubmit(){
+    //setItem(name, birthday);	
+    const response = await fetch(twilioURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "mode": "no-cors",
+      },
+      body: JSON.stringify({
+        "To": name,
+        "Body": birthday,
+      }),
+    });
+    console.log(response);
+
 		name = null;
 		birthday = null;
+
 	}
 </script>
 
