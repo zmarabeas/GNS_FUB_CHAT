@@ -1,2 +1,2 @@
 # Great North Sales and Finance
-![Alt text](relative%20assets/GreatNorth_Compass?raw=true "Title")
+![GNSF](https://github.com/zmarabeas/GNS_FUB_CHAT/blob/dev/assets/GreatNorth_Compass.png)
