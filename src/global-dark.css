@@ -1,0 +1,109 @@
+/* Global Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Body Styles */
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #36393f; /* Dark bluish grey background */
+    color: #fff; /* Light text color */
+    line-height: 1.6;
+  }
+  
+  /* Container Styles */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Typography */
+  h1, h2, h3 {
+    margin-bottom: 10px;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+  }
+  
+  h2 {
+    font-size: 2rem;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+  }
+  
+  p {
+    margin-bottom: 15px;
+  }
+  
+  /* Buttons */
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #7289da; /* Discord bluish grey */
+    color: #fff; /* Light text color */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #677bc4; /* Slightly darker shade on hover */
+  }
+  
+  /* Input Fields */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 15px;
+    background-color: #40444b; /* Darker bluish grey for input fields */
+    color: #fff; /* Light text color */
+  }
+  
+  /* Chat Styles */
+  .chat-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .message {
+    padding: 10px;
+    background-color: #40444b; /* Darker bluish grey for chat messages */
+    border-radius: 5px;
+    color: #fff; /* Light text color */
+  }
+  
+  .message.sent {
+    background-color: #7289da; /* Discord bluish grey for sent messages */
+  }
+  
+  .message.received {
+    background-color: #7289da; /* Discord bluish grey for received messages */
+  }
+  
+  .message.timestamp {
+    font-size: 0.8rem;
+    color: #888;
+  }
+  
+  /* Form Styles */
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Other Styles */
+  /* Add any additional styles here as needed */
+  
