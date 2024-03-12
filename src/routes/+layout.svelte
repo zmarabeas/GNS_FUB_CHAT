@@ -10,14 +10,16 @@
 </script>
 
 <div class=header>
-    <img class=logo src="company-logo-white.png" alt="Great North Sales and Finance">
-    <h1>Great North Sales and Finance</h1>
+    <div class=logo-container>
+        <img class=logo src="company-logo-white.png" alt="Great North Sales and Finance">
+        <h4>Great North Sales and Finance</h4>
+    </div>
 </div>
 
 <slot></slot>
 
 <div class=footer>
-    <img class=logo src="company-logo-white.png" alt="Great North Sales and Finance">
+    <!-- <img class=logo src="company-logo-white.png" alt="Great North Sales and Finance"> -->
     <div class=details-container>
         <h3>Company Details </h3>
         <span> - Great North Auto and Financing</span>
@@ -38,22 +40,36 @@
     @import "../global-dark.css";
 
     .header {
-        background-color: #333;
+        background-color: #2B443C;
         padding: 20px;
         text-align: center;
         display: flex;
+        align-items: flex-start;
+        /* justify-content: center; */
+        height: 20vh;
+        max-height: 20vh;
+        min-height: 20vh;
+    }
+
+    .logo-container{
+        display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
     }
 
     .footer {
-        background-color: #333;
+        background-color: #2B443C;
         padding: 20px;
         text-align: center;
         display: flex;
         align-items: center;
         justify-content: space-evenly;
+        gap: 20%;
         flex-direction: row;
+        min-height: 25vh;
+        height: 25vh;
+        max-height: 25vh;
     }
 
     .details-container {
@@ -63,7 +79,6 @@
         justify-content: center;
     }
 
-
     .footer-logo {
         max-width: 50px;
         height: auto;
@@ -72,7 +87,7 @@
     .logo {
         max-width: 100px;
         height: auto;
-        position: absolute;
-        left: 20px;
+        /* position: absolute; */
+        /* left: 20px; */
     }
  </style>

@@ -8,6 +8,29 @@
 
 </script>
 
+<body>
+    <div class=content>
+        <h2>No Dealerships. No Hassle.</h2>
+        <p>Get pre-approved to buy a car after answering a few questions</p>
+    </div>
+</body>
+
 <style>
+    .content {
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center; */
+        align-items: center;
+        height: 100%;
+        padding: 20px;
+        /* margin-top: 20px; */
+        /* gap: 20px; */
+    }
+
+    body{
+        min-height: 60vh;
+        max-height: 60vh;
+        height: 100%;
+    }
 
 </style>
