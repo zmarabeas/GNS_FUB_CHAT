@@ -54,9 +54,6 @@
         text-align: center;
         display: flex;
         align-items: flex-start;
-        height: 18vh;
-        max-height: 18vh;
-        min-height: 18vh;
     }
 
     .logo-container{
@@ -75,9 +72,6 @@
         justify-content: space-evenly;
         gap: 20%;
         flex-direction: row;
-        min-height: 25vh;
-        height: 25vh;
-        max-height: 25vh;
     }
 
     .details-container {

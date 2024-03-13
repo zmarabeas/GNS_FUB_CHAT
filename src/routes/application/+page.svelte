@@ -24,6 +24,16 @@
             <p>Get pre-approved to buy a car after answering a few questions</p>
         </div>
         <div class=options-container>
+          <div class=container id=submit>
+            <button class=action><h3>Get Pre-Qualified Now!</h3></button>
+          </div>
+
+          <div class=container id=or>
+            <h3>
+              -Or-
+            </h3>
+          </div>
+
           <div class=container id=info>
             <p>In a hurry? Leave your information and we can get back to you later!</p>
             <input type="text" name="Name" placeholder="Name" />
@@ -34,10 +44,7 @@
             <input type="email" placeholder="E-mail" />
             <textarea name="paragraph_text" cols="50" rows="10"
             placeholder="Leave a message here!" ></textarea>
-            <button class=submit>Submit</button>
-          </div>
-          <div class=container>
-            <button>Get Pre-Qualified Now!</button>
+            <button class=submit><h3>Submit</h3></button>
           </div>
         </div>
     </div>
@@ -53,13 +60,40 @@
         padding: 20px;
     }
 
+    .action {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    h3 {
+      margin: 0;
+    }
+
+    #submit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    #or {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 100px;
+      max-width: 100px;
+      width: 100px;
+    }
+
     .options-container {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        flex-wrap: wrap;
         height: inherit;
-        width: 100%;
         gap: 20px;
     }
 
@@ -68,9 +102,6 @@
     }
 
     body{
-        min-height: 80vh;
-        max-height: 80vh;
-        height: 100%;
     }
 
     .wrapper {
