@@ -16,7 +16,8 @@
   
   /* Container Styles */
   .container {
-    max-width: 960px;
+    max-width: 360px;
+    min-width: 360px;
     margin: 0 auto;
     padding: 20px;
   }
@@ -40,6 +41,11 @@
   
   p {
     margin-bottom: 15px;
+  }
+
+  a {
+    color: #fff;
+    text-decoration: none;
   }
   
   /* Buttons */
@@ -65,6 +71,7 @@
   input[type="text"],
   input[type="email"],
   input[type="password"],
+  input[type="tel"],
   textarea {
     padding: 10px;
     border: 1px solid #ccc;
@@ -111,4 +118,6 @@
   
   /* Other Styles */
   /* Add any additional styles here as needed */
+
+
   

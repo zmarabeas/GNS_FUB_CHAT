@@ -1,17 +1,28 @@
 <script>
     import { scrollToBottom } from '$lib/utils';
     import { onMount } from 'svelte';
-    
+    import { goto } from '$app/navigation';
 
     onMount(() => {
     });
 
+    function home() {
+        goto('/');
+    }
+
 </script>
 
 <div class=header>
-    <div class=logo-container>
-        <img class=logo src="company-logo-white.png" alt="GNSF">
-        <h4>Great North Sales and Finance</h4>
+    <a href="/">
+        <div class=logo-container>
+            <img class=logo src="company-logo-white.png" alt="GNSF">
+            <h4>Great North Sales and Finance</h4>
+        </div>
+    </a>
+
+    <div class=nav>
+        <a href="/application">get pre-approved</a>
+        <a href="/sell-my-car">sell my car</a>
     </div>
 </div>
 
@@ -43,9 +54,9 @@
         text-align: center;
         display: flex;
         align-items: flex-start;
-        height: 20vh;
-        max-height: 20vh;
-        min-height: 20vh;
+        height: 18vh;
+        max-height: 18vh;
+        min-height: 18vh;
     }
 
     .logo-container{
@@ -84,5 +95,16 @@
     .logo {
         max-width: 100px;
         height: auto;
+    }
+
+    .nav {
+        text-transform: capitalize;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 20px;
+        /* margin-top: 20px; */
+        margin-left: auto;
     }
  </style>

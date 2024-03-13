@@ -28,9 +28,9 @@
     }
 
     body{
-        min-height: 60vh;
-        max-height: 60vh;
-        height: 100%;
+        min-height: 80vh;
+        max-height: 80vh;
+        /* height: 100%; */
     }
 
 </style>

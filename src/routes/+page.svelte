@@ -44,7 +44,7 @@
     }
 
     body {
-        min-height: 60vh;
+        min-height: 80vh;
     }
 
     .content {
