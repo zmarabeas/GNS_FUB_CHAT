@@ -2,7 +2,7 @@
 <script>
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
-    import { scrollToBottom, routeToPage, goBack } from '$lib/utils';
+    import { scrollToBottom } from '$lib/utils';
 
     let applicationRoute = '/application';
     let sellMyCarRoute = '/sell-my-car';
