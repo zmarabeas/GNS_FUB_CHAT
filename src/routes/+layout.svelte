@@ -4,14 +4,13 @@
     
 
     onMount(() => {
-        // scrollToBottom();
     });
 
 </script>
 
 <div class=header>
     <div class=logo-container>
-        <img class=logo src="company-logo-white.png" alt="Great North Sales and Finance">
+        <img class=logo src="company-logo-white.png" alt="GNSF">
         <h4>Great North Sales and Finance</h4>
     </div>
 </div>
@@ -19,7 +18,6 @@
 <slot></slot>
 
 <div class=footer>
-    <!-- <img class=logo src="company-logo-white.png" alt="Great North Sales and Finance"> -->
     <div class=details-container>
         <h3>Company Details </h3>
         <span> - Great North Auto and Financing</span>
@@ -45,7 +43,6 @@
         text-align: center;
         display: flex;
         align-items: flex-start;
-        /* justify-content: center; */
         height: 20vh;
         max-height: 20vh;
         min-height: 20vh;
@@ -87,7 +84,5 @@
     .logo {
         max-width: 100px;
         height: auto;
-        /* position: absolute; */
-        /* left: 20px; */
     }
  </style>

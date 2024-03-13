@@ -29,9 +29,7 @@
 
 
 <style>
-    /* @import "../global-dark.css"; */
     .header {
-        /* background-color: #f4f4f4; */
         padding: 20px;
         text-align: center;
     }
@@ -52,23 +50,8 @@
     .content {
         display: flex;
         flex-direction: column;
-        /* justify-content: center; */
         align-items: center;
         height: 100%;
         padding: 20px;
-        /* margin-top: 20px; */
-        /* gap: 20px; */
     }
-
-    .btn {
-        padding: 10px 20px;
-        border-radius: 5px;
-        /* background-color: #333;
-        color: #fff; */
-        border: none;
-        cursor: pointer;
-    }
-    /* h1 {
-        color: #333;
-    } */
 </style>
