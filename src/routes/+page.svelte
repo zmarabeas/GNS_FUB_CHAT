@@ -8,8 +8,10 @@
   let applicationRoute = '/application';
   let sellMyCarRoute = '/sell-my-car';
 
-console.log(db);
+  const database = db;
+
   onMount(() => {
+    console.log(database);
   });
 
   function handleClick(selected) {
