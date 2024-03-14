@@ -3,13 +3,13 @@
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
   import { scrollToBottom } from '$lib/utils';
-  import { FirebaseDB as db } from '$lib/firebase/firebase';
+  //import { FirebaseDB as db } from '$lib/firebase/firebase';
 
   let applicationRoute = '/application';
   let sellMyCarRoute = '/sell-my-car';
 
   onMount(() => {
-    console.log(db);
+    //console.log(db);
   });
 
   function handleClick(selected) {
