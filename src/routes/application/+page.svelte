@@ -3,18 +3,62 @@
     import { PreApprovalApplicationQuestions } from '$lib/formData.js';
     //import { QuestionForm } from '$lib/QuestionForm.svelte';
     import { userStore, updateUser, resetUser } from '$lib/stores/stores.js';
+    import { FirebaseDB as database } from '$lib/firebase/firebase';
+    import { ref, set, update } from "firebase/database";
 
     let user = $userStore;
+    const db = database;
+    // console.log(db);
+
+    /**************************************************************
+    TODO:
+          validate user input
+          handle errors
+          send user to thank you page / confirmation notification
+          build full application form
+          prequalify user
+    **************************************************************/
+
+    function writeUserData(user) {
+        update(ref(db, 'users', ), {
+            [user.phone]: {
+                ...user
+            }
+        });
+    }
 
     userStore.subscribe(value => {
         user = value;
     });
 
-
     onMount(() => {
-        console.log(PreApprovalApplicationQuestions);
-        console.log(user);
     });
+
+    let input = {
+        name: '',
+        phone: '',
+        email: '',
+        message: ''
+    };
+
+    async function submitForm() {
+        // console.log('Input: ', tracker);
+        writeUserData(tracker);
+    }
+
+    let tracker;
+
+    $: {
+        tracker = {
+            name: input.name,
+            phone: input.phone,
+            email: input.email,
+            message: input.message
+        }
+        //remove all non numbers from phone
+        tracker.phone = tracker.phone.replace(/\D/g, '');
+        // console.log(tracker);
+    }
 
 </script>
 
@@ -36,15 +80,16 @@
 
           <div class=container id=info>
             <p>In a hurry? Leave your information and we can get back to you later!</p>
-            <input type="text" name="Name" placeholder="Name" />
+            <input type="text" name="Name" placeholder="Name" bind:value={input.name}/>
             <input type="tel" name="Phone" maxLength=12 
               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" 
               placeholder="123-456-7890"
+              bind:value={input.phone}
               />
-            <input type="email" placeholder="E-mail" />
+            <input type="email" placeholder="E-mail" bind:value={input.email}/>
             <textarea name="paragraph_text" cols="50" rows="10"
-            placeholder="Leave a message here!" ></textarea>
-            <button class=submit><h3>Submit</h3></button>
+            placeholder="Leave a message here!" bind:value={input.message}></textarea>
+            <button class=submit on:click={()=>submitForm()}><h3>Submit</h3></button>
           </div>
         </div>
     </div>
@@ -99,9 +144,6 @@
 
     .submit{
       width: 100%;
-    }
-
-    body{
     }
 
     .wrapper {

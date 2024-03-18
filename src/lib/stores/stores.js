@@ -9,7 +9,7 @@ export const userStore = writable({
 });
 
 export const updateUser = (name, questions, phone, email, note) => {
-  user.update((u) => {
+  userStore.update((u) => {
     u.name = name;
     u.questions = questions;
     u.phone = phone; 

@@ -10,13 +10,15 @@
 
   const database = db;
 
+  console.log(database);
   onMount(() => {
-    console.log(database);
   });
 
   function handleClick(selected) {
-      goto(selected);
+    goto(selected);
   }
+
+
 </script>
 
 <body>
