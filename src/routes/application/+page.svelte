@@ -69,7 +69,7 @@
         </div>
         <div class=options-container>
           <div class=container id=submit>
-            <button class=action><h3>Get Pre-Qualified Now!</h3></button>
+            <button class=action><h3>Get Pre-Approved Now!</h3></button>
           </div>
 
           <div class=container id=or>
