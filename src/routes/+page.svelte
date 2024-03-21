@@ -195,7 +195,7 @@
     gap: 20px;
     /* background-image: url('jeep-background-image.jpeg'); */
     /* color: #80AE9F; */
-    background-image: url('driving-winter-image.jpeg');
+    background-image: url('/static/driving-winter-image.jpeg');
     background-size: cover;
     background-position: center;
     background-position-y: 60%;
