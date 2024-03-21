@@ -68,10 +68,31 @@
         padding: 20px;
         text-align: center;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: space-evenly;
-        gap: 20%;
         flex-direction: row;
+    }
+
+    /* Default styles */
+    span {
+        text-align: left;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    /* Responsive styles for smaller screens */
+    @media only screen and (max-width: 768px) {
+        span {
+            font-size: 14px;
+            line-height: 1.3;
+        }
+
+        .footer {
+            padding: 10px;
+            flex-direction: row;
+        }
+
+
     }
 
     .details-container {
