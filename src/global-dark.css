@@ -54,17 +54,29 @@
     border: none;
     border-radius: 5px;
     background-color: #5E8A94; /* Discord bluish grey */
+    /* background-image: linear-gradient(to right, #5E8A94 0%, #669eab 51%, #9cc3cb 100%); */
     color: #fff; /* Light text color */
     cursor: pointer;
     transition: transform 0.3s ease, background-color 0.3s ease;
     /* transition: background-color 0.3s ease; */
+
+
+    flex: 1 1 auto;
+    text-align: center;
+    /* text-transform: uppercase; */
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    /* text-shadow: 0px 0px 10px rgba(0,0,0,0.2);*/
+    /* box-shadow: 0 0 20px #eee; */
+    border-radius: 10px;
   }
   
   button:hover {
-    background-color: #518071; /* Slightly darker shade on hover */
+    /* background-color: #518071; */
     /* slightly raise button slowly  */
     transform: translateY(-2px);
-
+    background-position: right center;
   }
   
   /* Input Fields */
