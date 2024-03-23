@@ -49,10 +49,12 @@
     @import "../global-dark.css";
 
     .header {
-        background-color: #2B443C;
+        /* background-color: #2B443C; */
+        background-color: #153D31;
         padding: 20px;
         text-align: center;
         display: flex;
+        /* background: linear-gradient(#123d30, #2C433B); */
         align-items: flex-start;
     }
 

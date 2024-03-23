@@ -5,7 +5,6 @@
     import { userStore, updateUser, resetUser } from '$lib/stores/stores.js';
     import { FirebaseDB as database } from '$lib/firebase/firebase';
     import { ref, set, update } from "firebase/database";
-    import { slide } from 'svelte/transition';
     import { fly, fade } from 'svelte/transition';
 
     let user = $userStore;
@@ -47,12 +46,19 @@
         name: '',
         phone: '',
         email: '',
-        message: ''
+        message: '',
+        questions: {}
     };
 
     async function submitForm() {
         // console.log('Input: ', tracker);
         writeUserData(tracker);
+    }
+
+    let selected = '';
+    async function handleSelection(option) {
+        console.log('Selected: ', option);
+        selected = option;
     }
 
     let tracker;
@@ -62,24 +68,25 @@
             name: input.name,
             phone: input.phone,
             email: input.email,
-            message: input.message
+            message: input.message,
+            questions: input.questions
         }
         //remove all non numbers from phone
         tracker.phone = tracker.phone.replace(/\D/g, '');
         // console.log(tracker);
     }
 
-    let questionKey = {};
-    let transitionInParams = { x: 200, duration: 400 };
-    let transitionOutParams = { x: -200, duration: 400 };
+    let distance = 50;
+    let duration = 200;
+    let transitionInParams = { x: distance, duration: duration};
+    let transitionOutParams = { x: -distance, duration: duration};
     let isVisible = false;
     async function handleNext() {
-        if(questionIndex < PreApprovalApplicationQuestions.length - 1){
-            transitionInParams = { x: 200, duration: 400 };
-            transitionOutParams = { x: -200, duration: 400 };
+        if(questionIndex < PreApprovalApplicationQuestions.length){
+            transitionInParams = { x: distance, duration: duration};
+            transitionOutParams = { x: -distance, duration: duration};
             isVisible = false;
             questionIndex++;
-            questionKey = {};
             setTimeout(() => {
                 isVisible = true;
             }, 400); // Delay to wait for fade out transition
@@ -92,62 +99,31 @@
     async function handleBack() {
         if(questionIndex > 0){
             isVisible = false;
-            transitionInParams = { x: -200, duration: 400 };
-            transitionOutParams = { x: 200, duration: 400 };
+            transitionInParams = { x: -distance, duration: duration};
+            transitionOutParams = { x: distance, duration: duration};
             questionIndex--;
-            questionKey = {};
             setTimeout(() => {
                 isVisible = true;
             }, 400); // Delay to wait for fade out transition
-
         }else{
             console.log('Start of questions');
         }
     }
 
-    function slideInFromRight(node, { duration = 400 }) {
-        const slideTrans = slide(node, {
-            x: '100%', // Start from the right
-            y: 0, // No vertical movement
-            duration,
-        });
-
-        return {
-            duration,
-            css: t => `
-                ${slideTrans.css(t)}
-                transform: translateX(${(1 - t) * 100}%); // Slide in from the right
-            `,
-        };
-    }
-
-    function fadeSlide(node, options) {
-		const slideTrans = slide(node, {
-            x: '100%', // Start from the right
-            y: '-100%',
-            duration: 400,
-        })
-		return {
-			duration: options.duration,
-			css: t => `
-				${slideTrans.css(t)}
-                transform: translateX(${(1 - t) * 100}%);
-				opacity: ${t};
-			`
-		};
-	}
+    import BIBinput from '$lib/components/BIBinput.svelte';
 
 </script>
+
 
 <body>
     <div class=content>
         {#if questionIndex === 0}
-            <div class=wrapper>
+            <div class=wrapper out:fade in:fade>
                 <p>Get pre-approved to buy a car after answering a few questions</p>
             </div>
-            <div class=options-container>
+            <div class=options-container in:fly={transitionInParams} out:fly={transitionOutParams}>
                 <div class=container id=submit>
-                    <button class=action on:click={()=>handleNext()}><h3>Get Pre-Approved Now!</h3></button>
+                    <button class=action id=main on:click={()=>handleNext()}><h3>Get Pre-Approved Now!</h3></button>
                 </div>
 
                 <div class=container id=or>
@@ -156,17 +132,20 @@
                     </h3>
                 </div>
 
-                <div class=container id=info>
+                <div class=container id=mini-info>
                     <p>In a hurry? Leave your information and we can get back to you later!</p>
-                    <input type="text" name="Name" placeholder="Name" bind:value={input.name}/>
+                    <BIBinput width={100} type={'text'} placeholder={"First and Last Name"} label={"Name"} bind:value={input.name}/>
+                    <BIBinput width={100} max=10 type={'phone'} placeholder={"123-456-7890"} label={"Phone"} bind:value={input.phone}/>
+                    <BIBinput width={100} type={'text'} placeholder={"EpicDeals@gnsf.com"} label={"E-Mail"} bind:value={input.email}/>
+                    <!-- <input type="text" name="Name" placeholder="Name" bind:value={input.name}/>
                     <input type="tel" name="Phone" maxLength=12 
                     pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" 
                     placeholder="123-456-7890"
                     bind:value={input.phone}
-                    />
-                    <input type="email" placeholder="E-mail" bind:value={input.email}/>
+                    /> -->
+                    <!-- <input type="email" placeholder="E-mail" bind:value={input.email}/> -->
                     <textarea name="paragraph_text" cols="50" rows="10"
-                    placeholder="Leave a message here!" bind:value={input.message}></textarea>
+                    placeholder="Leave a message here!              eg. I want to buy a used truck" bind:value={input.message}></textarea>
                     <button class=submit on:click={()=>submitForm()}><h3>Submit</h3></button>
                 </div>
             </div>
@@ -177,16 +156,26 @@
                     <!-- <div class=container id=info transition:fadeSlide> -->
                     <div class=container id=info in:fly={transitionInParams} out:fly={transitionOutParams}>
                         <p>{question.question}</p>
-                        <p>In a hurry? Leave your information and we can get back to you later!</p>
-                        <input type="text" name="Name" placeholder="Name" bind:value={input.name}/>
-                        <input type="tel" name="Phone" maxLength=12 
-                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" 
-                        placeholder="123-456-7890"
-                        bind:value={input.phone}
-                        />
-                        <input type="email" placeholder="E-mail" bind:value={input.email}/>
-                        <textarea name="paragraph_text" cols="50" rows="10"
-                        placeholder="Leave a message here!" bind:value={input.message}></textarea>
+
+                        <div class=options-container>
+                            {#if question.type === 'radio'}
+                                {#each question.options as option, index}
+                                    <button class=action id={selected===option?'selected':''} on:click={()=>handleSelection(option)}>{option}</button>
+                                {/each}
+                            {/if}
+                            {#if question.type === 'input'}
+                                {#each question.options as option, index}
+                                    <BIBinput width={100} max=7 type={question.inputType || 'text'}  placeholder={option} label={option} bind:value={input.name}/>
+                                    <!-- <div class=input-container>
+                                        <label for={option}>{option} | </label>
+                                        <input type="text" id={option} placeholder={option} />
+                                    </div> -->
+                                {/each}
+                            {/if}
+                            {#if question.type === 'textarea'}
+                                <textarea name="paragraph_text" cols="50" rows="10" placeholder={question.placeholder} bind:value={tracker[question.key]}></textarea>
+                            {/if}
+                        </div>
                         <div class=row-container>
                             <button class=back on:click={()=>handleBack()}><h3>Back </h3></button>
                             <button class=submit id=question on:click={()=>handleNext()}><h3>Next</h3></button>
@@ -194,6 +183,10 @@
                     </div>
 
                 {/if}
+            </div>
+        {:else}
+            <div class=wrapper in:fly={transitionInParams}>
+                <p>Thank you for your submission!</p>
             </div>
         {/if}
     </div>
@@ -210,17 +203,25 @@
         min-height: 100vh;
     }
 
-    .action {
-      width: 100%;
-      display: inline-flex;
-      align-items: center;
+    #mini-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
     }
+
+    p {
+        text-align: center;
+    }
+
 
     .row-container {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        margin-top: 40px;
         gap: 20px;
     }
 
@@ -265,6 +266,9 @@
     }
 
     .back {
+        background: none;
+        background-color: azure;
+        color: #163E31;
         width: 30%;
     }
 
@@ -273,6 +277,59 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+    }
+
+
+    .action {
+        width: 100%;
+        background-color: azure;
+        border: 1px solid #2B443C;
+        /* color: #2B443C; */
+        color: black;
+        background: azure;
+    }
+
+    #selected {
+        background-color: #2B443C;
+        border: 2px solid azure;
+        color: azure;
+        transform: translate(1px, 1px);
+    }
+
+    #main.action {
+        background: linear-gradient(#2C433B, #123d30);
+        color: azure
+    }
+
+
+    .input-container {
+        /* display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center; */
+        /* gap: 20px; */
+        position: relative;
+        width: 100%;
+    }
+
+    .input-container label {
+        font-size: 1.2em;
+        text-wrap: nowrap;
+        align-items: center;
+        position: absolute;
+        color: black;
+        transform: translateY(-50%);
+        top: 50%;
+        left: 10px;
+    }
+
+    .input-container input {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #2B443C;
+        background-color: azure;
+        color: black;
+        margin: 0;
     }
 
 </style>

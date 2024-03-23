@@ -4,6 +4,7 @@
   import { goto } from '$app/navigation';
   import { scrollToBottom } from '$lib/utils';
   import { FirebaseDB as db } from '$lib/firebase/firebase';
+  import { fade } from 'svelte/transition';
 
   let applicationRoute = '/application';
   let sellMyCarRoute = '/sell-my-car';
@@ -31,6 +32,54 @@
     isCentered = scrollPosition > 100; // Adjust this value based on when you want the transition to happen
   }
 
+  let services = [
+    'Auto Sales And Financing',
+    'Powersports And Recreation',
+    'Commercial And Construction',
+    'Fleet, Rental, and Many More Options!'
+  ];
+
+  let images = [
+    'car-image.png',
+    'boat-image.png',
+    'construction-image.png',
+    'rental-image.png'
+  ];
+
+  let teamMembers = {
+    'Blake Tiboo': {
+      title: 'Dealer Principal',
+      email: 'blake@greatnorthfinance.com',
+      phone: '403-836-0075',
+    },
+    'Ryan Coleman': {
+      title: 'Director of Finance',
+      email: 'ryan@greatnorthfinance.com',
+      phone: '289-339-4068',
+    },
+    'Sabrina Tibbo': {
+      title: 'Operations Manager',
+      email: 'sabrina@greatnorthfinance.com',
+      phone: '604-346-8192',
+    },
+    'Adarsh Nadeem': {
+      title: 'Business Development Manager',
+      email: 'adarsh@greatnorthfinance.com',
+      phone: '647-537-9501',
+    },
+  };
+
+  let teamImages = [
+    'Blake-Tibbo.webp',
+    'Ryan-Coleman.webp',
+    'Sabrina-Tibbo.webp',
+    'Adarsh-Nadeem.webp',
+  ];
+
+
+    let distance = 50;
+    let duration = 200;
+    let transitionInParamsLeft = { x: distance, duration: duration};
 
 </script>
 
@@ -47,6 +96,7 @@
 </body>
 
 <div class=content id=about>
+
   <div class=wrapper id=company>
     <div class=blur>
       <h2>Welcome to Great North Auto Sales and Finance!</h2>
@@ -55,17 +105,50 @@
       </div>
     </div>
   </div>
+
   <div class=mobile>
     <div class=wrapper id=blimage>
       <img src="group-pic.webp" alt="">
     </div>
-    <div class=wrapper id=company-info>
+    <div id=company-info>
       <h3>We Help Our Clients Achieve Their Automotive And Financing Goals</h3>
       <p class=info id=company-desc>
         Welcome to Great North Sales and Finance, where we specialize in acquisition, sales and financing of automotive vehicles as well as a diverse range of assets including: vehicles (personal, recreational, commercial), powersports, construction equipment and rentals.
       </p>
     </div>
   </div>
+
+  <div class=wrapper id=services>
+    <div class=blur>
+      <h2>Our Services</h2>
+      <div class=service-container>
+        {#each services as service, index}
+          <div class=service>
+            <img src={images[index]} style="max-width: 150px;" alt="">
+            <h2>{service}</h2>
+          </div>
+        {/each}
+      </div>
+    </div>
+  </div>
+
+  <div class=wrapper id=team>
+    <div class=blur>
+      <h2>Our Innovative Team</h2>
+      <div class=service-container>
+        {#each Object.keys(teamMembers) as member, index}
+          <div class=service id=member>
+            <img src={teamImages[index]} style="min-width: 100%;" alt="">
+            <h2 id=member-title>{member}</h2>
+            <span id=team-info>{teamMembers[member].title}</span>
+            <span id=team-info>{teamMembers[member].email}</span>
+            <span id=team-info>{teamMembers[member].phone}</span>
+          </div>
+        {/each}
+      </div>
+    </div>
+  </div>
+
 </div>
 
 
@@ -73,6 +156,45 @@
   .header {
     padding: 20px;
     text-align: center;
+  }
+
+  .service {
+    padding: 20px;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #team-info {
+    font-size: .5em;
+  }
+
+  #member.service {
+    max-width: 23%;
+    gap: 5px;
+  }
+
+  #member.service h2 {
+    font-size: .9em;
+  }
+
+  .service:hover {
+    transform: translateY(-1px); /* Move the div 5px upwards on hover */
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .service-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
   }
 
   #title {
@@ -86,15 +208,41 @@
   .mobile {
     display: flex;
     flex-direction: row;
+    align-items: center;
     flex-wrap: wrap;
     gap: 20px;
   }
 
+  .mobile{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+
+    border: 1px solid azure;
+    border-radius: 15px;
+    height: 100%;
+
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .wrapper:hover {
+    transform: translateY(-1px); /* Move the div 5px upwards on hover */
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
+  }
+
   #company-info {
     background-color: azure;
-    background-image: none;
     padding: 20px;
     max-width: 55%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
     text-align: center;
     color: black;
   }
@@ -123,6 +271,7 @@
     /* padding: 5px;
     border-radius: 15px; */
     max-width: 45%;
+    text-align: center;
   }
 
   .content {
@@ -142,6 +291,14 @@
       line-height: 1.3;
     }
 
+    #member-title{
+      margin-top: 10px;
+    }
+
+    #member.service h2 {
+      font-size: 3em;
+    }
+
     #blimage {
       min-width: 100%;
     }
@@ -152,6 +309,14 @@
 
     #title {
       font-size: 2.5em;
+    }
+
+    .service {
+      min-width: 100%;
+    }
+
+    #team-info {
+      font-size: 1em;
     }
 
     .content{
@@ -221,6 +386,26 @@
   #company {
     min-width: 100%;
     min-height: 150px;
+  }
+
+  #services {
+    min-width: 100%;
+    text-align: center;
+    justify-content: center;
+    /* background-image: url('GTR-image.jpeg');
+    background-position-y: 50%; */
+    background-image: none;
+    color: #153D31;
+  }
+
+  #team {
+    min-width: 100%;
+    text-align: center;
+    justify-content: center;
+    /* background-image: url('GTR-image.jpeg');
+    background-position-y: 50%; */
+    background-image: none;
+    color: #153D31;
   }
 
 

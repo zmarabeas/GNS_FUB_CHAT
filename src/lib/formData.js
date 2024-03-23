@@ -9,7 +9,7 @@ export const PreApprovalApplicationQuestions = [
     {
         "question": "What is your budget?",
         "description": "Find vehicle options that fit your budget.",
-        "options": ["Under $400 / Month", "$400 - 499 / Month", "$500 - 599 / Month", "$600 - 699 / Month", "$700 - 799 / Month", "$800 - 899 / Month", "$900 - 999 / Month", "Over $1000 / Month"],
+        "options": ["Under $400 / Month", "$400 - 499 / Month", "$500 - 599 / Month", "Over $600 / Month"],
         "type": "radio"
     },
     {
@@ -33,19 +33,22 @@ export const PreApprovalApplicationQuestions = [
     {
         "question": "What is your annual income before taxes and deductions?",
         "description": "Please tell us how much you make per year from your primary source of income, including total wages, bonuses, commissions, and any other income.",
-        "options": null,
-        "type": "input"
+        "options": ["Salary $"],
+        "type": "input",
+        "inputType": "number"
     },
     {
         "question": "How long have you been receiving this income?",
         "description": "Enter 1 month if you just started your job.",
         "options": ["Years", "Months"],
-        "type": "input"
+        "type": "input",
+        "inputType": "number"
     },
     {
         "question": "Where do you work?",
         "description": "We won't come visit, but we need these details to confirm your employment status so you can get the best rates possible.",
         "options": ["Company Name", "Job Title"],
-        "type": "input"
+        "type": "input",
+        "inputType": "text"
     }
 ]

@@ -89,7 +89,7 @@
     background: linear-gradient(#2C433B, #123d30);
     /* background: linear-gradient(#5fcbfb,#07a3ee); */
     box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.3);
-    color: #ffffff;
+    color: azure;
     border: none;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
@@ -107,12 +107,19 @@
   textarea {
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 15px;
     width: 100%;
     margin-bottom: 15px;
-    background-color: #40444b; /* Darker bluish grey for input fields */
-    color: #fff; /* Light text color */
+    background-color: azure; /* Darker bluish grey for input fields */
+    color: black; /* Light text color */
+    resize: none;
   }
+
+  textarea:focus {
+    /* outline: #5e9482; */
+    outline: 2px inset #183E31;
+    /* border: 2px solid #5E8A94; */
+    }
   
   /* Chat Styles */
   .chat-container {
