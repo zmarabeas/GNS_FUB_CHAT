@@ -83,11 +83,24 @@
         padding: 20px;
         padding-top: 10px;
         padding-bottom: 10px;
+        box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.3); 
     }
 
     .bib-container:focus-within {
         outline: 2px solid #183E31;
     }
+
+    .bib-container:hover {
+        transform: scale(1.01);
+        box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px azure inset !important;
+}
 
     .bib-inp {
         width: 100%;
@@ -103,10 +116,11 @@
 
     .bib-inp:focus {
         outline: none;
+        background-color: rgba(0, 0, 0, 0.0);
     }
 
     .bib-sp {
-        font-size: 1.2em;
+        font-size: 1em;
         text-wrap: nowrap;
         align-items: center;
         color: black;

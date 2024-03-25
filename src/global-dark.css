@@ -109,7 +109,6 @@
     border: 1px solid #ccc;
     border-radius: 15px;
     width: 100%;
-    margin-bottom: 15px;
     background-color: azure; /* Darker bluish grey for input fields */
     color: black; /* Light text color */
     resize: none;

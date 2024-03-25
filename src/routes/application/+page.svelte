@@ -208,7 +208,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 20px;
+        gap: 10px;
     }
 
     p {
@@ -253,7 +253,7 @@
         align-items: center;
         flex-wrap: wrap;
         height: inherit;
-        gap: 20px;
+        gap: 10px;
     }
 
     .submit{
