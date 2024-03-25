@@ -3,6 +3,8 @@
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
     let licenseRoute = 'https://www.mvsabc.com/vsa-search/vsa-search-results/?search_type=dealer&licence=50220';
+    import { page } from '$app/stores';  
+    $page.url.pathname  
 
     onMount(() => {
     });
@@ -16,7 +18,10 @@
 <div class=header>
     <a href="/">
         <div class=logo-container>
-            <img class=logo src="company-logo-white.png" alt="GNSF">
+            {#if $page.url.pathname === '/'}
+                <img class=logo src="company-logo-white.png" alt="GNSF">
+            {/if}
+            <!-- <img class=logo src="company-logo-white.png" alt="GNSF"> -->
             <h4>Great North Sales and Finance</h4>
         </div>
     </a>
