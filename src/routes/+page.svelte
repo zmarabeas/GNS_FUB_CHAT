@@ -8,6 +8,7 @@
 
   let applicationRoute = '/application';
   let sellMyCarRoute = '/sell-my-car';
+  let inventoryRoute = '/inventory';
 
   const database = db;
 
@@ -47,15 +48,15 @@
   ];
 
   let teamMembers = {
-    'Blake Tiboo': {
-      title: 'Dealer Principal',
-      email: 'blake@greatnorthfinance.com',
-      phone: '403-836-0075',
-    },
     'Ryan Coleman': {
       title: 'Director of Finance',
       email: 'ryan@greatnorthfinance.com',
       phone: '289-339-4068',
+    },
+    'Blake Tiboo': {
+      title: 'Dealer Principal',
+      email: 'blake@greatnorthfinance.com',
+      phone: '403-836-0075',
     },
     'Sabrina Tibbo': {
       title: 'Operations Manager',
@@ -70,8 +71,8 @@
   };
 
   let teamImages = [
-    'Blake-Tibbo.webp',
     'Ryan-Coleman.webp',
+    'Blake-Tibbo.webp',
     'Sabrina-Tibbo.webp',
     'Adarsh-Nadeem.webp',
   ];
@@ -124,7 +125,7 @@
       <div class=service-container>
         {#each services as service, index}
           <div class=service>
-            <img src={images[index]} style="max-width: 150px;" alt="">
+            <img src={images[index]} style="max-width: 50%;" alt="">
             <h2>{service}</h2>
           </div>
         {/each}
@@ -140,12 +141,20 @@
           <div class=service id=member>
             <img src={teamImages[index]} style="min-width: 100%;" alt="">
             <h2 id=member-title>{member}</h2>
-            <span id=team-info>{teamMembers[member].title}</span>
+            <span id=team-info><h4 class=member-info>{teamMembers[member].title}</h4></span>
             <span id=team-info>{teamMembers[member].email}</span>
             <span id=team-info>{teamMembers[member].phone}</span>
           </div>
         {/each}
       </div>
+    </div>
+  </div>
+
+  <div class=wrapper id=inventory>
+    <div class=blur>
+      <h2>Our Inventory</h2>
+      <p>Check out our inventory of vehicles, powersports, construction equipment and rentals.</p>
+      <button class=btn on:click={()=>handleClick(inventoryRoute)}>View Inventory</button>
     </div>
   </div>
 
@@ -156,6 +165,16 @@
   .header {
     padding: 20px;
     text-align: center;
+  }
+
+  #inventory.wrapper {
+    width: 100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: black;
   }
 
   .service {
@@ -171,17 +190,21 @@
     align-items: center;
   }
 
+  .member-info{
+    font-size: 1.1em;
+  }
+
   #team-info {
-    font-size: .5em;
+    font-size: 1em;
   }
 
   #member.service {
-    max-width: 23%;
+    max-width: 30%;
     gap: 5px;
   }
 
   #member.service h2 {
-    font-size: .9em;
+    font-size: 1.5em;
   }
 
   .service:hover {
@@ -281,6 +304,10 @@
     gap: 20px;
     height: 100%;
     padding: 20px;
+  }
+
+  #member-title {
+    font-size: 5em;
   }
 
   @media only screen and (max-width: 768px) {

@@ -47,8 +47,16 @@ export const PreApprovalApplicationQuestions = [
     {
         "question": "Where do you work?",
         "description": "We won't come visit, but we need these details to confirm your employment status so you can get the best rates possible.",
-        "options": ["Company Name", "Job Title"],
+        "options": ["Company", "Job Title"],
+        "type": "input",
+        "inputType": "text"
+    },
+    {
+        "question": "Where are you looking for a vehicle?",
+        "description": "i dont know",
+        "options": ["location"],
         "type": "input",
         "inputType": "text"
     }
+
 ]
