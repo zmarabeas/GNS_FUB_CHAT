@@ -202,6 +202,7 @@
     align-items: center;
     text-align: center;
     color: black;
+    background: none;
   }
 
   #vsa {
@@ -210,6 +211,7 @@
     max-width: 100%;
     display: flex;
     flex-direction: column;
+    background: none;
     justify-content: center;
     align-items: center;
     text-align: flex-start;
@@ -224,6 +226,8 @@
     align-items: center;
     text-align: center;
     color: black;
+    background-color: azure;
+    background: none;
   }
 
   .service {
@@ -437,6 +441,7 @@
     /* background-image: url('jeep-background-image.jpeg'); */
     /* color: #80AE9F; */
     background-image: url('/static/driving-winter-image.jpeg');
+    /* background-image: url('driving-winter-image.jpeg'); */
     background-size: cover;
     background-position: center;
     background-position-y: 60%;
