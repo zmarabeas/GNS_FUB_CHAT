@@ -5,7 +5,6 @@
     export let index;
     export let car;
     export let showDetails = false;
-    console.log(car);
 
     const dispatch = createEventDispatcher();
 
@@ -20,26 +19,23 @@
 
     function toggleDetails(button=false) {
         showDetails = !showDetails;
-        if(button){
-            showDetails = !showDetails;
-        }
         dispatch('toggle', {showDetails, index});
-        // console.log('asdf');
     }
 </script>
 
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class=content on:click={()=>toggleDetails()}>
+<div class=content>
     <img src={car.image} alt="">
     <div class='main-info'>
         <h4>{car.make} {car.model} {car.year}</h4>
-        <span>{car.transmissionType}, {car.mileage}</span>
+        <span id=title-info>{car.transmissionType}  -  {car.mileage}</span>
     </div>
 
-    <div class=price>
-        <span>{formatPrice(car.price)}</span>
+    <div class=row-container>
+        <div class=price>
+            <span>{formatPrice(car.price)}</span>
+        </div>
+        <button class=but id=head on:click={()=>toggleDetails(true)}>{showDetails===true?'Less':'More'} Details</button>
     </div>
 
     {#if showDetails}
@@ -76,18 +72,38 @@
         </span>
         <span class=spec>
             <span class=item>
-                <p id=title></p>
-                <p></p>
+                <p id=title>Year</p>
+                <p>{car.year}</p>
             </span>
             <span class=item>
-                <p id=title></p>
-                <p></p>
+                <p id=title>Dealer Number</p>
+                <p>{car.dealerNumber}</p>
             </span>
         </span>
         <span class=spec>
             <span class=item>
-                <p id=title></p>
-                <p></p>
+                <p id=title>Drive Type</p>
+                <p>{car.driveType}</p>
+            </span>
+            <span class=item>
+                <p id=title>Transmission</p>
+                <p>{car.transmissionType}</p>
+            </span>
+        </span>
+        <span class=spec>
+            <span class=item>
+                <p id=title>Doors</p>
+                <p>{car.doors}</p>
+            </span>
+            <span class=item>
+                <p id=title>Seats</p>
+                <p>{car.seats}</p>
+            </span>
+        </span>
+        <span class=spec>
+            <span class=item>
+                <p id=title>Fuel Type</p>
+                <p>{car.fuelType}</p>
             </span>
             <span class=item>
                 <p id=title></p>
@@ -95,7 +111,7 @@
             </span>
         </span>
     </div>
-    <button on:click={()=>toggleDetails(true)}>{showDetails===true?'Less':'More'} Details</button>
+    <!-- <button class=but on:click={()=>toggleDetails(true)}>{showDetails===true?'Less Details':'More Details'}</button> -->
 </div>
 
 <style>
@@ -110,6 +126,17 @@
         color: black;
     }
 
+    .row-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    #head {
+        max-width: 40%;
+    }
+
     .content img{
         max-width: 100%;
         max-height: 100%;
@@ -121,7 +148,7 @@
         justify-content: flex-start;
         flex-direction: column;
         align-items: flex-start;
-        gap: 5px;
+        /* gap: 5px; */
         padding: 10px;
         border-bottom: 1px solid #ccc;
         width: 100%;
@@ -134,6 +161,13 @@
         display: flex;
         flex-direction: row;
         width: 100%;
+    }
+
+    #title-info {
+        color: #747474;
+        /* border-radius: 15px;
+        padding: 10px;
+        background-color: #e7e7e7; */
     }
 
     .specs {
@@ -167,10 +201,13 @@
     }
 
     .price {
-        width: 100%;
+        width: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
+        border-radius: 15px;
+        background: linear-gradient(90deg, #ABD2C4 0%, #ABD2C4 100%);
+        background: linear-gradient(90deg, rgba(171,210,196, .20) 0%, rgba(171,210,196, .8) 100%);
         padding: 10px;
     }
 

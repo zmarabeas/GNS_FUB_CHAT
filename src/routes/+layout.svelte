@@ -2,6 +2,7 @@
     import { scrollToBottom } from '$lib/utils';
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
+    let licenseRoute = 'https://www.mvsabc.com/vsa-search/vsa-search-results/?search_type=dealer&licence=50220';
 
     onMount(() => {
     });
@@ -33,7 +34,9 @@
         <h3>Company Details </h3>
         <span> - Great North Auto and Financing</span>
         <span> - Address: 110-131 12th Street, New Westminster, BC V3M 4G9</span>
-        <span> - VSA Licensed Company Dealer #50220</span>
+        <a href={licenseRoute} target="_blank">
+            <span> - VSA Licensed Company Dealer #50220</span>
+        </a>
     </div>
     <div class=details-container>
         <h3>Our Services</h3>

@@ -9,6 +9,7 @@
   let applicationRoute = '/application';
   let sellMyCarRoute = '/sell-my-car';
   let inventoryRoute = '/inventory';
+  let licenseRoute = 'https://www.mvsabc.com/vsa-search/vsa-search-results/?search_type=dealer&licence=50220';
 
   const database = db;
 
@@ -158,6 +159,29 @@
     </div>
   </div>
 
+  <div class=wrapper id=vsa>
+    <div class=blur>
+      <h2>Integrity at the Core: Our Promise of Trust</h2>
+      <p>Known for our team's kindness and punctuality, we prioritize providing exceptional service at every turn. Whether it's a friendly greeting or delivering on time, our commitment to excellence shines through in every interaction.</p>
+      <h3>VSA Licensed #D50220</h3>
+      <a href={licenseRoute} target="_blank">
+        <button class=btn>View License</button>
+      </a>
+    </div>
+  </div>
+
+  <div class=wrapper id=apply>
+    <div class=content>
+        <h2 id=title>No Dealerships. No Hassle.</h2>
+        <div class=input-container>
+          <button class=btn on:click={()=>handleClick(applicationRoute)}>Get Pre-Approved</button>
+          <span>Or</span>
+          <button class=btn on:click={()=>handleClick(sellMyCarRoute)}>Sell My Car</button>
+        </div>
+    </div>
+
+  </div>
+
 </div>
 
 
@@ -165,6 +189,31 @@
   .header {
     padding: 20px;
     text-align: center;
+  }
+
+
+  #apply {
+    background-color: azure;
+    padding: 20px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: black;
+  }
+
+  #vsa {
+    background-color: azure;
+    padding: 20px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: flex-start;
+    color: black;
   }
 
   #inventory.wrapper {
@@ -310,7 +359,7 @@
     font-size: 5em;
   }
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 868px) {
     .desc {
       line-height: 1.4;
     }
