@@ -49,35 +49,37 @@
   ];
 
   let teamMembers = {
+    'Blake Tibbo': {
+      title: 'Dealer Principal',
+      email: 'blake@greatnorthfinance.com',
+      phone: '403-836-0075',
+      image: 'Blake-Tibbo.webp'
+    },
     'Ryan Coleman': {
       title: 'Director of Finance',
       email: 'ryan@greatnorthfinance.com',
       phone: '289-339-4068',
-    },
-    'Blake Tiboo': {
-      title: 'Dealer Principal',
-      email: 'blake@greatnorthfinance.com',
-      phone: '403-836-0075',
+      image: 'Ryan-Coleman.webp'
     },
     'Sabrina Tibbo': {
       title: 'Operations Manager',
       email: 'sabrina@greatnorthfinance.com',
       phone: '604-346-8192',
+      image: 'Sabrina-Tibbo.webp'
     },
     'Adarsh Nadeem': {
       title: 'Business Development Manager',
       email: 'adarsh@greatnorthfinance.com',
       phone: '647-537-9501',
+      image: 'Adarsh-Nadeem.webp'
     },
+    'Ray Gaffney': {
+      title: 'Sales and FinanceManager',
+      email: 'ray@greatnorthfinance.com',
+      phone: '236-889-7284',
+      image: 'Ray-Gaffney.webp'
+    }
   };
-
-  let teamImages = [
-    'Ryan-Coleman.webp',
-    'Blake-Tibbo.webp',
-    'Sabrina-Tibbo.webp',
-    'Adarsh-Nadeem.webp',
-  ];
-
 
     let distance = 50;
     let duration = 200;
@@ -140,7 +142,7 @@
       <div class=service-container>
         {#each Object.keys(teamMembers) as member, index}
           <div class=service id=member>
-            <img src={teamImages[index]} style="min-width: 100%;" alt="">
+            <img src={teamMembers[member].image} style="min-width: 100%;" alt="">
             <h2 id=member-title>{member}</h2>
             <span id=team-info><h4 class=member-info>{teamMembers[member].title}</h4></span>
             <span id=team-info>{teamMembers[member].email}</span>
