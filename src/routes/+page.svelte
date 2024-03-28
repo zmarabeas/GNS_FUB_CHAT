@@ -74,7 +74,7 @@
       image: 'Adarsh-Nadeem.webp'
     },
     'Ray Gaffney': {
-      title: 'Sales and FinanceManager',
+      title: 'Sales and Finance Manager',
       email: 'ray@greatnorthfinance.com',
       phone: '236-889-7284',
       image: 'Ray-Gaffney.webp'
@@ -127,11 +127,10 @@
       <p>Get pre-approved to buy a car or sell your car directly to us.</p>
       <div class=input-container>
         <button class=btn on:click={()=>handleClick(applicationRoute)}>Get Pre-Approved</button>
-        <div id="ex1" on:mousemove="{mouseMoveHandler}">
-          <!-- Make sure the class name is in quotes -->
+        <!-- <div id="ex1" on:mousemove="{mouseMoveHandler}">
           <img class="fox" src="fox.svg" alt="Fox Image" bind:this={ex1Layer}>
-        </div>
-        <!-- <span>Or</span> -->
+        </div> -->
+        <span>or</span>
         <button class=btn on:click={()=>handleClick(sellMyCarRoute)}>Sell My Car</button>
       </div>
   </div>
@@ -199,7 +198,7 @@
     </div>
   </div>
 
-  <div class=wrapper id=vsa>
+  <!-- <div class=wrapper id=vsa>
     <div class=blur>
       <h2>Integrity at the Core: Our Promise of Trust</h2>
       <p>Known for our team's kindness and punctuality, we prioritize providing exceptional service at every turn. Whether it's a friendly greeting or delivering on time, our commitment to excellence shines through in every interaction.</p>
@@ -208,7 +207,7 @@
         <button class=btn>View License</button>
       </a>
     </div>
-  </div>
+  </div> -->
 
   <div class=wrapper id=apply>
     <div class=content>

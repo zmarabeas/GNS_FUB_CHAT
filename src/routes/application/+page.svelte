@@ -17,7 +17,8 @@
 
     let user = $userStore;
     const db = database;
-    let questionIndex = PreApprovalApplicationQuestions.length - 1;
+    // let questionIndex = PreApprovalApplicationQuestions.length - 1;
+    let questionIndex = 0;
     let question = PreApprovalApplicationQuestions[questionIndex];
     PreApprovalApplicationQuestions.forEach(question => {
       if(question.type === 'input'){
@@ -196,8 +197,9 @@
                     bind:value={input.phone}
                     /> -->
                     <!-- <input type="email" placeholder="E-mail" bind:value={input.email}/> -->
+                    <span class=label>Leave us a message!</span>
                     <textarea name="paragraph_text" cols="50" rows="10"
-                    placeholder="Leave a message here!              eg. I want to buy a used truck" bind:value={input.message}></textarea>
+                    placeholder="eg. I want to buy a used truck" bind:value={input.message}></textarea>
                     <button class=submit on:click={()=>submitForm()}><h3>Submit</h3></button>
                 </div>
             </div>
@@ -237,12 +239,15 @@
                 {/if}
             </div>
         {:else}
-            <div class=wrapper in:fly={transitionInParams}>
-                <p>Thank you for your submission!</p>
-            </div>
-            <div class=row-container>
-                <button class=back on:click={()=>handleBack()}><h3>Back </h3></button>
-                <button class=submit id=question on:click={()=>handleNext()}><h3>Next</h3></button>
+            <div class=success>
+                <div class=wrapper in:fly={transitionInParams}>
+                    <p>Thank you for your submission!</p>
+                </div>
+                <div class=row-container>
+                    <button class=back on:click={()=>handleBack()}><h3>Back </h3></button>
+                    <button class=submit id=question on:click={()=>handleNext()}><h3>Next</h3></button>
+                </div>
+
             </div>
         {/if}
     </div>
@@ -257,6 +262,20 @@
         justify-content: flex-start;
         padding: 20px;
         min-height: 100vh;
+    }
+
+    .success {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-width: 50%;
+        gap: 20px;
+        border: 1px solid #2B443C;
+    }
+
+    .success .back {
+        width: 100%;
     }
 
     #mini-info {
@@ -283,6 +302,14 @@
 
     h3 {
       margin: 0;
+    }
+
+    .label {
+        margin: 0;
+        min-width: 100%;
+        text-align: left;
+        margin-bottom: -10px;
+        margin-left: 20px;
     }
 
     #submit {

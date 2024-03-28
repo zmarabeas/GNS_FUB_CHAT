@@ -27,8 +27,16 @@
     </a>
 
     <div class=nav>
-        <a href="/application">get pre-approved</a>
+        {#if $page.url.pathname === '/application' || $page.url.pathname === '/sell-my-car'}
+            <h4>(403) 836-0075</h4>
+        {:else}
+            <a href="/application">get pre-approved</a>
+            <a href="/sell-my-car">sell my car</a>
+            <!-- <a href="/inventory">view inventory</a> -->
+        {/if}
+        <!-- <a href="/application">get pre-approved</a>
         <a href="/sell-my-car">sell my car</a>
+        <a href="/inventory">view inventory</a> -->
     </div>
 </div>
 
@@ -39,9 +47,9 @@
         <h3>Company Details </h3>
         <span> - Great North Auto and Financing</span>
         <span> - Address: 110-131 12th Street, New Westminster, BC V3M 4G9</span>
-        <a href={licenseRoute} target="_blank">
+        <!-- <a href={licenseRoute} target="_blank">
             <span> - VSA Licensed Company Dealer #50220</span>
-        </a>
+        </a> -->
     </div>
     <div class=details-container>
         <h3>Our Services</h3>
@@ -79,7 +87,7 @@
         text-align: center;
         display: flex;
         align-items: flex-start;
-        justify-content: space-evenly;
+        justify-content: space-between;
         flex-direction: row;
     }
 
@@ -91,15 +99,22 @@
     }
 
     /* Responsive styles for smaller screens */
-    @media only screen and (max-width: 768px) {
+    @media only screen and (max-width: 778px) {
         span {
-            font-size: 14px;
             line-height: 1.3;
+            font-size: 1rem;
         }
 
         .footer {
             padding: 10px;
-            flex-direction: row;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .details-container {
+            max-width: 100%;
+            min-width: 80%;
         }
 
 
@@ -110,6 +125,8 @@
         flex-direction: column;
         align-items: flex-start;
         justify-content: center;
+        max-width: 45%;
+        min-width: 45%;
     }
 
     .footer-logo {
