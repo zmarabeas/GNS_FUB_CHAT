@@ -40,6 +40,16 @@
     });
 
     onMount(() => {
+      PreApprovalApplicationQuestions.forEach(question => {
+        if(question.type === 'input'){
+          input.questions[question.question] = {};
+          question.options.forEach(option => {
+            input.questions[question.question][option] = '';
+          });
+        } else {
+          input.questions[question.question] = '';
+        }
+      });
     });
 
     let input = {
@@ -56,9 +66,22 @@
     }
 
     let selected = '';
-    async function handleSelection(option) {
+    async function handleSelection(option, question=null) {
         console.log('Selected: ', option);
         selected = option;
+        updateSelected(option);
+        if(question){
+            input.questions[question] = option;
+        }
+    }
+
+    function updateSelected(option='') {
+      console.log(input.questions);
+      if(input.questions[currentQuestion]){
+        selected = input.questions[currentQuestion];
+      }else{
+        selected = option; 
+      }
     }
 
     let tracker;
@@ -73,7 +96,7 @@
         }
         //remove all non numbers from phone
         tracker.phone = tracker.phone.replace(/\D/g, '');
-        // console.log(tracker);
+        console.log(tracker);
     }
 
     let distance = 50;
@@ -94,7 +117,17 @@
             console.log('End of questions');
             console.log('User: ', tracker);
         }
+        
     }
+
+  let currentQuestion = PreApprovalApplicationQuestions[questionIndex].question;
+  $: {
+    currentQuestion = PreApprovalApplicationQuestions[questionIndex].question;
+    if(input.questions[currentQuestion]){
+      selected = input.questions[currentQuestion];
+    }
+    console.log(currentQuestion);
+  }
 
     async function handleBack() {
         if(questionIndex > 0){
@@ -160,12 +193,12 @@
                         <div class=options-container>
                             {#if question.type === 'radio'}
                                 {#each question.options as option, index}
-                                    <button class=action id={selected===option?'selected':''} on:click={()=>handleSelection(option)}>{option}</button>
+                                    <button class=action id={selected===option?'selected':''} on:click={()=>handleSelection(option, question.question)}>{option}</button>
                                 {/each}
                             {/if}
                             {#if question.type === 'input'}
                                 {#each question.options as option, index}
-                                    <BIBinput width={100} max=7 type={question.inputType || 'text'}  placeholder={option} label={option} bind:value={input.name}/>
+                                    <BIBinput width={100} max=7 type={question.inputType || 'text'}  placeholder={option} label={option} bind:value={input.questions[question.question][option]}/>
                                     <!-- <div class=input-container>
                                         <label for={option}>{option} | </label>
                                         <input type="text" id={option} placeholder={option} />

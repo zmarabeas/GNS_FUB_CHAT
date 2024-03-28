@@ -33,7 +33,7 @@ export const PreApprovalApplicationQuestions = [
     {
         "question": "What is your annual income before taxes and deductions?",
         "description": "Please tell us how much you make per year from your primary source of income, including total wages, bonuses, commissions, and any other income.",
-        "options": ["Salary $"],
+        "options": ["Salary"],
         "type": "input",
         "inputType": "number"
     },
