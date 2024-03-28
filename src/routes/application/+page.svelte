@@ -7,19 +7,37 @@
     import { ref, set, update } from "firebase/database";
     import { fly, fade } from 'svelte/transition';
 
+    let input = {
+        name: '',
+        phone: '',
+        email: '',
+        message: '',
+        questions: {}
+    };
+
     let user = $userStore;
     const db = database;
-    let questionIndex = 0;
+    let questionIndex = PreApprovalApplicationQuestions.length - 1;
     let question = PreApprovalApplicationQuestions[questionIndex];
+    PreApprovalApplicationQuestions.forEach(question => {
+      if(question.type === 'input'){
+        input.questions[question.question] = {};
+        question.options.forEach(option => {
+          input.questions[question.question][option] = '';
+        });
+      } else {
+        input.questions[question.question] = '';
+      }
+    });
 
 
     $: {
         question = PreApprovalApplicationQuestions[questionIndex];
-        console.log(question);
-        Object.keys(PreApprovalApplicationQuestions).forEach((key, index) => {
-            console.log("Question: ", PreApprovalApplicationQuestions[key].question);
-            console.log("Answers: ", PreApprovalApplicationQuestions[key].options);
-        });
+        {/* console.log(question); */}
+        {/* Object.keys(PreApprovalApplicationQuestions).forEach((key, index) => { */}
+        {/*     console.log("Question: ", PreApprovalApplicationQuestions[key].question); */}
+        {/*     console.log("Answers: ", PreApprovalApplicationQuestions[key].options); */}
+        {/* }); */}
     }
 
     /**************************************************************
@@ -45,29 +63,16 @@
     });
 
     onMount(() => {
-      PreApprovalApplicationQuestions.forEach(question => {
-        if(question.type === 'input'){
-          input.questions[question.question] = {};
-          question.options.forEach(option => {
-            input.questions[question.question][option] = '';
-          });
-        } else {
-          input.questions[question.question] = '';
-        }
-      });
     });
 
-    let input = {
-        name: '',
-        phone: '',
-        email: '',
-        message: '',
-        questions: {}
-    };
 
     async function submitForm() {
-        // console.log('Input: ', tracker);
-        writeUserData(tracker);
+      let nameQ = 'Almost Done! What is your name?';
+      let phoneQ = 'Last Step! What is your phone number?';
+      tracker.name = tracker.questions[nameQ]['First Name'] + ' ' + tracker.questions[nameQ]['Last Name'];
+      tracker.phone = tracker.questions[phoneQ]['Phone Number'];
+      console.log('Submitting user info: ', tracker);
+      // writeUserData(tracker);
     }
 
     let selected = '';
@@ -108,9 +113,9 @@
     let duration = 200;
     let transitionInParams = { x: distance, duration: duration};
     let transitionOutParams = { x: -distance, duration: duration};
-    let isVisible = false;
+    let isVisible = true;
     async function handleNext() {
-        if(questionIndex < PreApprovalApplicationQuestions.length){
+        if(questionIndex < PreApprovalApplicationQuestions.length - 1){
             transitionInParams = { x: distance, duration: duration};
             transitionOutParams = { x: -distance, duration: duration};
             isVisible = false;
@@ -118,6 +123,9 @@
             setTimeout(() => {
                 isVisible = true;
             }, 400); // Delay to wait for fade out transition
+        }else if(questionIndex === PreApprovalApplicationQuestions.length - 1){
+            submitForm();
+            questionIndex++;
         }else{
             console.log('End of questions');
             console.log('User: ', tracker);
@@ -127,11 +135,17 @@
 
   let currentQuestion = PreApprovalApplicationQuestions[questionIndex].question;
   $: {
-    currentQuestion = PreApprovalApplicationQuestions[questionIndex].question;
-    if(input.questions[currentQuestion]){
-      selected = input.questions[currentQuestion];
+    if(PreApprovalApplicationQuestions[questionIndex] === undefined){
+      currentQuestion = '';
+    }else{
+      currentQuestion = PreApprovalApplicationQuestions[questionIndex].question;
+      if(input.questions[currentQuestion]){
+        selected = input.questions[currentQuestion];
+      }else{
+        selected = '';
+      }
+      console.log(currentQuestion);
     }
-    console.log(currentQuestion);
   }
 
     async function handleBack() {
@@ -216,7 +230,7 @@
                         </div>
                         <div class=row-container>
                             <button class=back on:click={()=>handleBack()}><h3>Back </h3></button>
-                            <button class=submit id=question on:click={()=>handleNext()}><h3>Next</h3></button>
+                            <button class=submit id=question on:click={()=>handleNext()}><h3>{questionIndex===(PreApprovalApplicationQuestions.length-1)?'Submit':'Next'}</h3></button>
                         </div>
                     </div>
 
@@ -225,6 +239,10 @@
         {:else}
             <div class=wrapper in:fly={transitionInParams}>
                 <p>Thank you for your submission!</p>
+            </div>
+            <div class=row-container>
+                <button class=back on:click={()=>handleBack()}><h3>Back </h3></button>
+                <button class=submit id=question on:click={()=>handleNext()}><h3>Next</h3></button>
             </div>
         {/if}
     </div>
