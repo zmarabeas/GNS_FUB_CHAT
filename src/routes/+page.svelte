@@ -85,6 +85,40 @@
     let duration = 200;
     let transitionInParamsLeft = { x: distance, duration: duration};
 
+
+    // let constrain = 20;
+    // let ex1Layer;
+    
+    // function transforms(x, y, el) {
+    //   let box = el.getBoundingClientRect();
+    //   let calcX = -(y - box.y - (box.height / 2)) / constrain;
+    //   let calcY = (x - box.x - (box.width / 2)) / constrain;
+      
+    //   return `perspective(100px) rotateX(${calcX}deg) rotateY(${calcY}deg)`;
+    // }
+
+    // function mouseMoveHandler(event) {
+    //   const { clientX, clientY } = event;
+    //   const position = [clientX, clientY, ex1Layer];
+    //   window.requestAnimationFrame(() => {
+    //     ex1Layer.style.transform = transforms(...position);
+    //   });
+    // }
+
+    let constrain = 2000;
+    let ex1Layer;
+
+    // Function to handle mouse movement
+    function mouseMoveHandler(event) {
+      const { clientX, clientY } = event;
+      if (ex1Layer) {
+        const box = ex1Layer.getBoundingClientRect();
+        const calcX = -(clientY - box.y - (box.height / 2)) / constrain;
+        const calcY = (clientX - box.x - (box.width / 2)) / constrain;
+        ex1Layer.style.transform = `perspective(100px) rotateX(${calcX}deg) rotateY(${calcY}deg)`;
+      }
+    }
+
 </script>
 
 <body>
@@ -93,7 +127,11 @@
       <p>Get pre-approved to buy a car or sell your car directly to us.</p>
       <div class=input-container>
         <button class=btn on:click={()=>handleClick(applicationRoute)}>Get Pre-Approved</button>
-        <span>Or</span>
+        <div id="ex1" on:mousemove="{mouseMoveHandler}">
+          <!-- Make sure the class name is in quotes -->
+          <img class="fox" src="fox.svg" alt="Fox Image" bind:this={ex1Layer}>
+        </div>
+        <!-- <span>Or</span> -->
         <button class=btn on:click={()=>handleClick(sellMyCarRoute)}>Sell My Car</button>
       </div>
   </div>
@@ -191,6 +229,18 @@
   .header {
     padding: 20px;
     text-align: center;
+  }
+
+  #ex1 {
+    position: relative;
+    width: 50px;
+    height: 50px;
+  }
+
+  #ex1 img {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
 

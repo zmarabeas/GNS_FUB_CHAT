@@ -53,10 +53,68 @@ export const PreApprovalApplicationQuestions = [
     },
     {
         "question": "Where are you looking for a vehicle?",
-        "description": "i dont know",
-        "options": ["location"],
+        "description": "",
+        "options": ["Address", "City", "Province", "Postal Code"],
         "type": "input",
         "inputType": "text"
-    }
+    },
+    {
+        "question": "How long have you lived at your current address?",
+        "description": "",
+        "options": ["Years", "Months"],
+        "type": "input",
+        "inputType": "number"
+    },
+    {
+        "question": "Do you rent or own your home?",
+        "description": "",
+        "options": ["Rent", "Own"],
+        "type": "radio",
+        "inputType": ""
+    },
+    {
+        "question": "What is your monthly payment?",
+        "description": "",
+        "options": ["$ Per Month"],
+        "type": "input",
+        "inputType": "number"
+    },
+    {
+        "question": "Are you a Canadian citizen or permanent resident?",
+        "description": "",
+        "options": ["Yes", "No"],
+        "type": "radio",
+    },
+    {
+        "question": "Do you have a valid Canadian driver's licence?",
+        "description": "",
+        "options": ["Yes", "No"],
+        "type": "radio",
+    },
+    {
+        "question": "What is your date of birth?",
+        "description": "",
+        "options": ["Date", "Month", "Year"],
+        "type": "input",
+        "inputType": "number",
+    },
+    {
+        "question": "Almost Done! What is your name?",
+        "description": "",
+        "options": ["First Name", "Last Name"],
+        "type": "input",
+        "inputType": "text",
+    },
+    {
+        "question": "Last Step! What is your phone number?",
+        "description": "",
+        "options": ["Phone Number"],
+        "type": "input",
+        "inputType": "phone",
+    },
+    
+
+
+
 
 ]

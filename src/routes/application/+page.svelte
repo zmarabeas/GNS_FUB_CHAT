@@ -12,9 +12,14 @@
     let questionIndex = 0;
     let question = PreApprovalApplicationQuestions[questionIndex];
 
+
     $: {
         question = PreApprovalApplicationQuestions[questionIndex];
         console.log(question);
+        Object.keys(PreApprovalApplicationQuestions).forEach((key, index) => {
+            console.log("Question: ", PreApprovalApplicationQuestions[key].question);
+            console.log("Answers: ", PreApprovalApplicationQuestions[key].options);
+        });
     }
 
     /**************************************************************
