@@ -140,10 +140,12 @@
 
   <div class=wrapper id=company>
     <div class=blur>
-      <h2>Welcome to Great North Inventory</h2>
-      <div class=desc>
-        <p class=info>Unlocking a world of opportunities across diverse inventory and asset classes.
-Harnessing our expertise in inventory management, financing, and beyond to empower your future. </p>
+      <div class=grey>
+        <h2>Welcome to Great North Inventory</h2>
+        <div class=desc>
+          <p class=info>Unlocking a world of opportunities across diverse inventory and asset classes.
+  Harnessing our expertise in inventory management, financing, and beyond to empower your future. </p>
+        </div>
       </div>
     </div>
   </div>
@@ -194,7 +196,7 @@ Harnessing our expertise in inventory management, financing, and beyond to empow
   -->
 
   <div class=wrapper id=inventory>
-    <div class=blur>
+    <div class=blur id=blinventory>
       <h2>Our Inventory</h2>
       <p>Check out our inventory of vehicles, powersports, construction equipment and rentals.</p>
       <button class=btn on:click={()=>handleClick(inventoryRoute)}>View Inventory</button>
@@ -518,6 +520,7 @@ Harnessing our expertise in inventory management, financing, and beyond to empow
     padding: 20px;
     border-radius: 15px;
     font-weight: bold;
+    background-color: rgba(125, 125, 125, 0.4);
     /*
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
@@ -579,6 +582,10 @@ ul {
 .sub-bullet-text {
   margin-right: 80px;
   font-weight: bold;
+}
+
+#blinventory {
+  background-color: azure;
 }
 
 </style>
