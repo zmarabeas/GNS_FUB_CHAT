@@ -6,6 +6,7 @@
     import { FirebaseDB as database } from '$lib/firebase/firebase';
     import { ref, set, update } from "firebase/database";
     import { fly, fade } from 'svelte/transition';
+    import Range from '$lib/components/Range.svelte';
 
     let input = {
         name: '',
@@ -80,15 +81,21 @@
     async function handleSelection(option, question=null) {
         console.log('Selected: ', option);
         selected = option;
-        updateSelected(option);
         if(question){
             input.questions[question] = option;
         }
+        updateSelected(option);
     }
 
     function updateSelected(option='') {
       console.log(input.questions);
-      if(input.questions[currentQuestion]){
+      if(questionIndex === 0){
+        if(input.questions['formType']){
+          selected = input.questions['formType'];
+        }else{
+          selected = option;
+        }
+      }else if(input.questions[currentQuestion]){
         selected = input.questions[currentQuestion];
       }else{
         selected = option; 
@@ -139,7 +146,11 @@
     if(PreApprovalApplicationQuestions[questionIndex] === undefined){
       currentQuestion = '';
     }else{
-      currentQuestion = PreApprovalApplicationQuestions[questionIndex].question;
+      if(questionIndex === 0){
+        currentQuestion = 'formType';
+      }else{
+        currentQuestion = PreApprovalApplicationQuestions[questionIndex].question;
+      }
       if(input.questions[currentQuestion]){
         selected = input.questions[currentQuestion];
       }else{
@@ -165,6 +176,79 @@
 
     import BIBinput from '$lib/components/BIBinput.svelte';
 
+
+
+    // Select all of the following that you are interested in exploring:
+
+    // -Buy, lease or rent a vehicle, powersport unit, recreational or commercial asset
+
+    // -Sell or trade a vehicle, powersport unit, recreational or commercial asset
+
+    // -Obtain a personal loan or business loan
+
+    // -Buy a property
+
+    // -Sell a property
+
+    let appOptions = {
+        'buy': {
+            title: 'Buy, lease or rent',
+            options: ['vehicle', 'powersport unit', 'recreational asset', 'commercial asset']
+        },
+        'sell': {
+            title: 'Sell or trade',
+            options: ['vehicle', 'powersport unit', 'recreational asset', 'commercial asset']
+        },
+        'loan': {
+            title: 'Obtain a personal loan or business loan',
+            options: ['personal loan', 'business loan']
+        },
+        'property': {
+            title: 'Buy or sell a property',
+            options: ['buy property', 'sell property']
+        }
+    }
+
+    let appType = 'Pre-Approval';
+    let appCategory = 'Auto';
+    let appSubCategory = 'Pre-Approval';
+    let appStatus = 'In Progress';
+    let appDate = new Date().toLocaleDateString();
+    let appTime = new Date().toLocaleTimeString();
+    let appDateTime = appDate + ' ' + appTime;
+    let appID = appType + ' ' + appCategory + ' ' + appSubCategory + ' ' + appDateTime;
+
+    let app = {
+        appType: appType,
+        appCategory: appCategory,
+        appSubCategory: appSubCategory,
+        appStatus: appStatus,
+        appDate: appDate,
+        appTime: appTime,
+        appDateTime: appDateTime,
+        appID: appID,
+        user: tracker
+    };
+
+    console.log('App: ', app);
+
+    $: {
+        app = {
+            appType: appType,
+            appCategory: appCategory,
+            appSubCategory: appSubCategory,
+            appStatus: appStatus,
+            appDate: appDate,
+            appTime: appTime,
+            appDateTime: appDateTime,
+            appID: appID,
+            user: tracker
+        };
+    }
+
+    let submitButtonElement;
+
+    let rangeVal = 50;
 </script>
 
 
@@ -176,17 +260,29 @@
             </div>
             <div class=options-container in:fly={transitionInParams} out:fly={transitionOutParams}>
                 <div class=container id=submit>
-                    <button class=action id=main on:click={()=>handleNext()}><h3>Get Pre-Approved Now!</h3></button>
+                    <!-- <button class=action id=main on:click={()=>handleNext()}><h3>Get Pre-Approved Now!</h3></button> -->
+                    {#each Object.keys(appOptions) as option, index}
+                        <button class=action id={selected===option?'selected':''} on:click={()=>handleSelection(option, 'formType')}>{appOptions[option].title}</button>
+                    {/each}
+                    <button class=submit on:click={()=>handleNext()}><h3>Start</h3></button>
+                    <!--
+                    <div class="slidecontainer">
+                      <input  type="range" min="1" max="100" bind:value={rangeVal} class="slider" id="myRange">
+                      {rangeVal}
+                    </div>
+                    -->
                 </div>
 
                 <div class=container id=or>
                     <h3>
                     -Or-
                     </h3>
+                    <button id=scroll on:click={submitButtonElement.scrollIntoView({behavior: "smooth", inline: "nearest"})}>In a hurry?</button>
+                    <!-- element.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" }); -->
                 </div>
 
                 <div class=container id=mini-info>
-                    <p>In a hurry? Leave your information and we can get back to you later!</p>
+                    <p bind:this={submitButtonElement}>Leave your information and we can get back to you later!</p>
                     <BIBinput width={100} type={'text'} placeholder={"First and Last Name"} label={"Name"} bind:value={input.name}/>
                     <BIBinput width={100} max=10 type={'phone'} placeholder={"123-456-7890"} label={"Phone"} bind:value={input.phone}/>
                     <BIBinput width={100} type={'text'} placeholder={"EpicDeals@gnsf.com"} label={"E-Mail"} bind:value={input.email}/>
@@ -247,13 +343,76 @@
                     <button class=back on:click={()=>handleBack()}><h3>Back </h3></button>
                     <button class=submit id=question on:click={()=>handleNext()}><h3>Next</h3></button>
                 </div>
-
             </div>
         {/if}
     </div>
 </body>
 
 <style>
+  #scroll{
+    background: none;
+    background-color: azure;
+    color: #163E31;
+    width: 100%;
+    margin-top: 55px;
+  }
+
+  .slidecontainer {
+    width: 100%;
+  }
+
+    /* The slider itself */
+  .slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 100%; /* Full-width */
+    height: 15px; /* Specified height */
+    /* background: #d3d3d3; Grey background */
+    background: azure;
+    border-radius: 15px;
+    outline: none; /* Remove outline */
+    opacity: 0.8; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+  }
+
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    /* background: #04AA6D; Green background */
+    background: linear-gradient(#2C433B, #123d30);
+    border-radius: 50%;
+    cursor: pointer; /* Cursor on hover */
+  }
+
+  /* Mouse-over effects */
+  .slider:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+  }
+
+    /* .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        width: 100%;
+    } */
+
+    .questionWrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        width: 100%;
+  }
+
+    .test-wrapper {
+      width: 100%;
+    }
     .content {
         display: flex;
         flex-direction: column;
@@ -324,14 +483,14 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-width: 100px;
+      /* min-width: 100px;
       max-width: 100px;
-      width: 100px;
+      width: 100px; */
     }
 
     .options-container {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;

@@ -1,4 +1,87 @@
 
+
+
+// Select all of the following that you are interested in exploring:
+
+// -Buy, lease or rent a vehicle, powersport unit, recreational or commercial asset
+
+// -Sell or trade a vehicle, powersport unit, recreational or commercial asset
+
+// -Obtain a personal loan or business loan
+
+// -Buy a property
+
+// -Sell a property
+
+// (Prompt if vehicle is selected) 1. Select the type of vehicle(s) or assets you would consider:
+ 
+// ['Car', 'Truck', 'SUV', 'Van', 'Motorcycle', 'Boat, Trailer, RV, Other (type box)']
+
+// (Prompt if loan is selected) 1. Select the range of loan that would help accomplish your goals:
+ 
+// [Minimum: [type box], Maximum [type box] ']
+
+// (Prompt if buy or sell a property is selected) 
+// If applicable, please notate the addresses of the properties and / or paste a web link. 
+// (If no applicable addresses at this time, leave the space blank and press continue)
+// [txt box]
+
+
+// What is your budget? (We need a spot for overall spend range on the vehicle or property min-max and a second slide or question for payment range: min - max (let them type) (always do a range)
+
+// What are you selling or trading?
+// [year / make / model / km/hours est ]
+
+// How is your credit history?
+// Excellent, Fair, Needs work, Very bad
+// Do you want to improve your credit Y/N?
+// Do you want to learn how to read a credit report?
+
+// Phone number, is call or text preferred? Optional text box for email or other contact method
+
+// Secondary tree..
+
+// Are you interested in seeing what you qualify for right now?
+
+// What is your current employment status?
+// ['Employed', 'Self-Employed', 'Unemployed', 'Retired', 'Other']
+
+// What is an estimate of your annual income before deductions?
+// ['Salary $']
+
+// How long have you been receiving this income?
+// ['Years', 'Months']
+
+// What do you work?
+// ['Company', 'Job Title']
+
+// What address can we use for your residence? (this matters because particular lenders have provincial and municipal restrictions)
+// ['Address', 'City', 'Province', 'Postal Code'] (option to skip)
+
+// How long have you lived at your current address?
+// ['Years', 'Months'] (option to skip)
+
+// Do you rent or own your home?
+// ['Rent', 'Own']
+// What is the monthly payment?
+ 
+// ['$ Per Month']
+
+// Are you a Canadian citizen or permanent resident?
+// ['Yes', 'No']
+
+// Do you have a valid Canadian driver's licence?
+// ['Yes', 'No']
+
+// What is your date of birth?
+// ['Date', 'Month', 'Year']
+
+// Almost Done! What is your name?
+// ['First Name', 'Last Name']
+
+// Last Step! What is your phone number?
+// ['Phone Number']
+
 export const PreApprovalApplicationQuestions = [
     {
         "question": "What type of vehicle are you looking for?",

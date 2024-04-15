@@ -140,9 +140,10 @@
 
   <div class=wrapper id=company>
     <div class=blur>
-      <h2>Welcome to Great North Auto Sales and Finance!</h2>
+      <h2>Welcome to Great North Inventory</h2>
       <div class=desc>
-        <p class=info>Sharing our expertise and planning for the future within the automotive sales, financing, powersport, recreation, commercial and rental industries.</p>
+        <p class=info>Unlocking a world of opportunities across diverse inventory and asset classes.
+Harnessing our expertise in inventory management, financing, and beyond to empower your future. </p>
       </div>
     </div>
   </div>
@@ -152,13 +153,13 @@
       <img src="group-pic.webp" alt="">
     </div>
     <div id=company-info>
-      <h3>We Help Our Clients Achieve Their Automotive And Financing Goals</h3>
+      <h3>Your Ultimate Source for High-Quality Assets</h3>
       <p class=info id=company-desc>
-        Welcome to Great North Sales and Finance, where we specialize in acquisition, sales and financing of automotive vehicles as well as a diverse range of assets including: vehicles (personal, recreational, commercial), powersports, construction equipment and rentals.
+        Great North Inventory is your premier destination for purchasing high-quality assets. We offer a diverse range of products to meet your personal needs. With our user-friendly interface and reliable service, finding and acquiring the assets you require has never been easier. Experience seamless transactions and top-notch customer support with Great North Inventory today.
       </p>
     </div>
   </div>
-
+<!--
   <div class=wrapper id=services>
     <div class=blur>
       <h2>Our Services</h2>
@@ -172,8 +173,9 @@
       </div>
     </div>
   </div>
+-->
 
-  <div class=wrapper id=team>
+<!--  <div class=wrapper id=team>
     <div class=blur>
       <h2>Our Innovative Team</h2>
       <div class=service-container>
@@ -189,6 +191,7 @@
       </div>
     </div>
   </div>
+  -->
 
   <div class=wrapper id=inventory>
     <div class=blur>
@@ -253,6 +256,7 @@
     align-items: center;
     text-align: center;
     color: black;
+    min-width: 100%;
     background: none;
   }
 
@@ -330,6 +334,7 @@
 
   #company-desc{
     max-width: 80%;
+    text-align: left;
   }
 
   .mobile {
@@ -398,7 +403,7 @@
     /* padding: 5px;
     border-radius: 15px; */
     max-width: 45%;
-    text-align: center;
+    text-align: left;
   }
 
   .content {
@@ -488,11 +493,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
     gap: 20px;
     /* background-image: url('jeep-background-image.jpeg'); */
     /* color: #80AE9F; */
-    background-image: url('/static/driving-winter-image.jpeg');
-    /* background-image: url('driving-winter-image.jpeg'); */
+    /* background-image: url('/static/driving-winter-image.jpeg');*/
+    background-image: url('driving-winter-image.jpeg');
     background-size: cover;
     background-position: center;
     background-position-y: 60%;
@@ -511,8 +517,11 @@
     min-height: 100%;
     padding: 20px;
     border-radius: 15px;
+    font-weight: bold;
+    /*
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
+    */
   }
 
   #company {

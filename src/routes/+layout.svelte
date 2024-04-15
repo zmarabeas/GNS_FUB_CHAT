@@ -32,7 +32,7 @@
         {:else}
             <a href="/application">get pre-approved</a>
             <a href="/sell-my-car">sell my car</a>
-            <!-- <a href="/inventory">view inventory</a> -->
+            <a href="/inventory">view inventory</a>
         {/if}
         <!-- <a href="/application">get pre-approved</a>
         <a href="/sell-my-car">sell my car</a>
@@ -45,8 +45,9 @@
 <div class=footer>
     <div class=details-container>
         <h3>Company Details </h3>
-        <span> - Great North Auto and Financing</span>
-        <span> - Address: 110-131 12th Street, New Westminster, BC V3M 4G9</span>
+        <span> - Great North Inventory</span>
+        <!--<span> - Address: 110-131 12th Street, New Westminster, BC V3M 4G9</span>
+        -->
         <!-- <a href={licenseRoute} target="_blank">
             <span> - VSA Licensed Company Dealer #50220</span>
         </a> -->
@@ -89,6 +90,7 @@
         align-items: flex-start;
         justify-content: space-between;
         flex-direction: row;
+        width: 100vw;
     }
 
     /* Default styles */
@@ -98,27 +100,6 @@
         line-height: 1.5;
     }
 
-    /* Responsive styles for smaller screens */
-    @media only screen and (max-width: 778px) {
-        span {
-            line-height: 1.3;
-            font-size: 1rem;
-        }
-
-        .footer {
-            padding: 10px;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .details-container {
-            max-width: 100%;
-            min-width: 80%;
-        }
-
-
-    }
 
     .details-container {
         display: flex;
@@ -148,5 +129,27 @@
         gap: 20px;
         /* margin-top: 20px; */
         margin-left: auto;
+    }
+
+    /* Responsive styles for smaller screens */
+    @media only screen and (max-width: 778px) {
+        span {
+            line-height: 1.3;
+            font-size: 1rem;
+        }
+
+        .footer {
+            padding: 10px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .details-container {
+            max-width: 100%;
+            min-width: 80%;
+            /* width: 100vw; */
+        }
     }
  </style>
