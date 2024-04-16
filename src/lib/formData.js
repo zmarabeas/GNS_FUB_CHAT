@@ -158,7 +158,7 @@ export const PreApprovalApplicationQuestions = [
     {
         "question": "What is your monthly payment?",
         "description": "",
-        "options": ["$ Per Month"],
+        "options": ["Per Month"],
         "type": "input",
         "inputType": "number"
     },

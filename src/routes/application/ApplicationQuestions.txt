@@ -32,7 +32,7 @@
  - ['Rent', 'Own']
 
 12. What is your monthly payment?
- - ['$ Per Month']
+ - ['Per Month']
 
 13. Are you a Canadian citizen or permanent resident?
  - ['Yes', 'No']
