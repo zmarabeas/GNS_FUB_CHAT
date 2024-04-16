@@ -303,7 +303,7 @@
                     <!-- <input type="email" placeholder="E-mail" bind:value={input.email}/> -->
                     <span class=label>Leave us a message!</span>
                     <textarea name="paragraph_text" cols="50" rows="10"
-                    placeholder="eg. I want to buy a used truck" bind:value={input.message}></textarea>
+                    placeholder="I want to buy a used truck" bind:value={input.message}></textarea>
                     <button class=submit on:click={()=>submitForm()}><h3>Submit</h3></button>
                 </div>
             </div>
