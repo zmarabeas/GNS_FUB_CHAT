@@ -22,7 +22,7 @@
                 <img class=logo src="company-logo-white.png" alt="GNSF">
             {/if}
             <!-- <img class=logo src="company-logo-white.png" alt="GNSF"> -->
-            <h4>Great North Sales and Finance</h4>
+            <h4>Great North Inventory</h4>
         </div>
     </a>
 

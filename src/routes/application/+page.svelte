@@ -4,7 +4,7 @@
     //import { QuestionForm } from '$lib/QuestionForm.svelte';
     import { userStore, updateUser, resetUser } from '$lib/stores/stores.js';
     import { FirebaseDB as database } from '$lib/firebase/firebase';
-    import { ref, set, update } from "firebase/database";
+    import { ref, set, update, push } from "firebase/database";
     import { fly, fade } from 'svelte/transition';
     import Range from '$lib/components/Range.svelte';
 
@@ -18,7 +18,7 @@
 
     let user = $userStore;
     const db = database;
-    // let questionIndex = PreApprovalApplicationQuestions.length - 1;
+    //let questionIndex = PreApprovalApplicationQuestions.length - 1;
     let questionIndex = 0;
     let question = PreApprovalApplicationQuestions[questionIndex];
     PreApprovalApplicationQuestions.forEach(question => {
@@ -60,6 +60,13 @@
         });
     }
 
+    function submitApplicationData(app) {
+        console.log('App: ', app);
+        push(ref(db, 'applications', ), {
+                ...app
+        });
+    }
+
     userStore.subscribe(value => {
         user = value;
     });
@@ -74,6 +81,7 @@
       tracker.name = tracker.questions[nameQ]['First Name'] + ' ' + tracker.questions[nameQ]['Last Name'];
       tracker.phone = tracker.questions[phoneQ]['Phone Number'];
       console.log('Submitting user info: ', tracker);
+      submitApplicationData(tracker);
       // writeUserData(tracker);
     }
 
@@ -337,11 +345,18 @@
         {:else}
             <div class=success>
                 <div class=wrapper in:fly={transitionInParams}>
-                    <p>Thank you for your submission!</p>
+                    <h3>Thank you for your submission!</h3>
+                    <br>
+                    <p>Have a look at our inventory 
+                    while you wait for a response by one of our team members.</p>
                 </div>
                 <div class=row-container>
-                    <button class=back on:click={()=>handleBack()}><h3>Back </h3></button>
-                    <button class=submit id=question on:click={()=>handleNext()}><h3>Next</h3></button>
+                    <button class=inventory><a href="/inventory"><h3>View Inventory</h3></a></button> 
+                    <!--<button class=home><a href="/"><h3>Home</h3></a></button>-->
+                    <!--
+                      <button class=back on:click={()=>handleBack()}><h3>Back </h3></button>
+                      <button class=submit id=question on:click={()=>handleNext()}><h3>Next</h3></button>
+                    -->
                 </div>
             </div>
         {/if}
@@ -429,8 +444,9 @@
         align-items: center;
         justify-content: center;
         min-width: 50%;
+        max-width: 50%;
         gap: 20px;
-        border: 1px solid #2B443C;
+        //border: 1px solid #2B443C;
     }
 
     .success .back {
