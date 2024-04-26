@@ -1,24 +1,101 @@
 <script>
-    import { Car } from '$lib/models/Car.js';
     import { carData } from '$lib/data/cars.js';
     import CarView from '$lib/components/CarView.svelte';
 
+    import { onMount } from 'svelte';
+
+    import { FirebaseDB as database } from '$lib/firebase/firebase';
+    import { ref, onValue, update } from 'firebase/database';
+
+    const db = database;
+
+    let inventoryData = {};
+    let inventoryList = [];
+    function getInventory() {
+      const inventoryRef = ref(db, 'inventory');
+      onValue(inventoryRef, (snapshot) => {
+        const data = snapshot.val();
+        inventoryData = data;
+        inventoryList = Object.values(data['vehicles']);
+        inventoryList.forEach(car => {
+          cars.push(car);
+        });
+        console.log('inventory', inventoryList);
+        console.log('cars', cars);
+        carsKey = {};
+      });
+    }
+
+/*
+    let test = {};
+    $: {
+      if (inventoryList.length > 0) {
+        test = inventoryList[0];
+        cars.push(test);
+      } 
+      console.log('wat', cars);
+    }
+*/
+
+    //get scroll from document
+
+
+
+    let carsKey = {};
     let cars = [];
-    console.log(carData);
+    let contentDiv = null;
+    let numCars = 10;
     carData.forEach(car => {
-        let carInstance = new Car(car);
-        cars.push(carInstance);
+        //cars.push(car);
+    });
+
+
+    // handle scroll
+    let yScroll=0;
+    let docWidth=0;
+    let docBottom=0;
+
+    let userInput = {
+      name: '',
+      phone: '',
+      email: ''
+    };
+
+    $: outerWidth = 0;
+    $: innerWidth = 0;
+
+    let minWidth = 0;
+    let multiplier = 1;
+    $: {
+      minWidth = innerWidth < outerWidth ? innerWidth : outerWidth;
+      if(minWidth < 900) {
+        multiplier = 2; 
+      }else {
+        multiplier = .8;
+      }
+      if(yScroll > numCars * 500 * multiplier) {
+        numCars += 10;
+      }
+    }
+
+    onMount(() => {
+      getInventory();
     });
 
 </script>
     
+
+<svelte:window bind:scrollY={yScroll} bind:outerWidth bind:innerWidth />
+
 <body>
-    <div class=content>
-        {#each cars as car, index}
+    <div class=content bind:this={contentDiv}>
+      {#key carsKey}
+        {#each cars.slice(0, numCars) as car, index}
             <div class=wrapper>
-                <CarView index={index} car={car} />
+                <CarView index={index} car={car} bind:input={userInput} />
             </div>
         {/each}
+      {/key}
     </div>
 </body>
 

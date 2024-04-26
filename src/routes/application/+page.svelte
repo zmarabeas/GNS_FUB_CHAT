@@ -80,6 +80,7 @@
       let phoneQ = 'Last Step! What is your phone number?';
       tracker.name = tracker.questions[nameQ]['First Name'] + ' ' + tracker.questions[nameQ]['Last Name'];
       tracker.phone = tracker.questions[phoneQ]['Phone Number'];
+      tracker.type = 'pre-approval';
       console.log('Submitting user info: ', tracker);
       submitApplicationData(tracker);
       // writeUserData(tracker);

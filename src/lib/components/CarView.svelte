@@ -2,9 +2,20 @@
     import { carData } from '$lib/data/cars.js';
     import { createEventDispatcher } from 'svelte';
     import { slide } from 'svelte/transition';
+    import { onMount } from 'svelte';
+    import { fade, fly } from 'svelte/transition';
     export let index;
     export let car;
     export let showDetails = false;
+    import BIBinput from '$lib/components/BIBinput.svelte';
+
+    import { FirebaseDB as database } from '$lib/firebase/firebase';
+    import { ref, push } from "firebase/database";
+    
+    const db = database;
+
+    let imageIndex = 0;
+    let interestForm = false;
 
     const dispatch = createEventDispatcher();
 
@@ -21,23 +32,119 @@
         showDetails = !showDetails;
         dispatch('toggle', {showDetails, index});
     }
+    export let input = {
+        name: '',
+        phone: '',
+        email: ''
+    };
+    let testImages = [];
+    let currentImage = '';
+    let previousImage = '';
+    let nextImage = '';
+    let carImage = null;
+    function handleImage(car, direction) {
+      if (direction === 'prev') {
+        if (imageIndex > 0) {
+            imageIndex--;
+        } else {
+            imageIndex = car.images.length - 1;
+        }
+        carImage.src = car.images[imageIndex];
+        console.log(carImage);
+      } else if (direction === 'next') {
+          if (imageIndex < car.images.length - 1) {
+              imageIndex++;
+          } else {
+              imageIndex = 0;
+          }
+          carImage.src = car.images[imageIndex];
+      }
+    }
+
+//price: 54995
+//year: 2024
+//make: Mitsubishi
+//model: Outlander PHEV
+//body_style_name: SUV
+//trim: SEL
+//dealer_name: Cranbrook
+//milage: 1,438
+//images: ['https://images.edealer.ca/2/131314582.jpeg', 'https://images.edealer.ca/2/131314587.jpeg', 'https://images.edealer.ca/2/131314584.jpeg', 'https://images.edealer.ca/2/131314575.jpeg', 'https://images.edealer.ca/2/131314580.jpeg', 'https://images.edealer.ca/2/131314574.jpeg', 'https://images.edealer.ca/2/131314573.jpeg', 'https://images.edealer.ca/2/131314576.jpeg', 'https://images.edealer.ca/2/131314577.jpeg', 'https://images.edealer.ca/2/131314586.jpeg', 'https://images.edealer.ca/2/131314585.jpeg', 'https://images.edealer.ca/2/131314589.jpeg', 'https://images.edealer.ca/2/131314579.jpeg', 'https://images.edealer.ca/2/131314578.jpeg']
+//Body Style: SUV
+//Engine: 2.4L 4cyl
+//Exterior: Grey
+//Interior: Grey
+//Fuel type: Hybrid
+//Transmission: Automatic
+//Drivetrain: 4x4
+//Stock: 24T4358A
+//VIN: JA4T5VA91RZ602014
+//City: Cranbrook
+//url: https://www.kochgroup.ca/used/vehicle/2024-mitsubishi-outlander-phev-sel-id12851631.htm
+//displayString: 2024 Mitsubishi Outlander PHEV SEL
+
+    let nonDisplay = ['url', 'displayString', 'images', 'body_style_name',
+      'details', 'image'];
+
+    onMount(() => {
+    });
+
+    let required = false;
+    let success = false;
+    function submitForm() {
+        input['car'] = car;
+        input['url'] = car.url || 'url not found';
+        input['date'] = new Date();
+        input['type'] = 'inventory';
+
+        if(input.name === '' || input.phone === '' || input.email === '') {
+            required = true;
+            return;
+        }
+
+        required = false;
+        success = true;
+        console.log(input);
+        push(ref(db, 'applications', ), {
+                ...input
+        });
+    }
 </script>
 
 
 <div class=content>
-    <img src={car.image} alt="">
-    <div class='main-info'>
-        <h4>{car.make} {car.model} {car.year}</h4>
-        <span id=title-info>{car.transmissionType}  -  {car.mileage}</span>
+    <div class=car-image>
+      {#if car.images && car.images.length > 0}
+          <div class=img-wrapper>
+            <img bind:this={carImage} src={car.images[0]} alt="test" fetchPriority='high'/>
+          </div>
+          <div class=button-wrapper>
+            <button style='width: 30%' on:click={()=>handleImage(car, 'prev')}>Previous</button>
+            <span style='min-width: 20%; text-align:center;'>{imageIndex + 1} of {car.images.length}</span>
+            <button style='width: 30%'on:click={()=>handleImage(car, 'next')}>Next</button>
+          </div>
+      {/if}
     </div>
-
+    <div class='main-info'>
+        {#if car.displayString}
+          <h3>{car.displayString}</h3>
+        {:else}
+          <h3>{car.make} {car.model} {car.year}</h3>
+        {/if}
+        <span id=title-info>{car.milage} km</span>
+    </div>
     <div class=row-container>
         <div class=price>
             <span>{formatPrice(car.price)}</span>
         </div>
-        <button class=but id=head on:click={()=>toggleDetails(true)}>{showDetails===true?'Less':'More'} Details</button>
+      <button class=but id=head on:click={()=>interestForm=!interestForm}>Buy this car</button>
     </div>
+<!--    
+<img src={car.images[imageIndex]} alt="">
 
+-->
+
+<!--
     {#if showDetails}
         <div class=details in:slide={{duration: 1000}} out:slide={{duration: 1000}}>
             {#each car.details as detail}
@@ -47,80 +154,114 @@
             {/each}
         </div>
     {/if}
+-->
+    {#if interestForm}
+        <div class=interest-form in:slide={{duration: 400}} out:slide={{duration: 400}}>
+            <BIBinput width={100} type={'text'} placeholder={"First and Last Name"} label={"Name"} bind:value={input.name}/>
+            <BIBinput width={100} max=10 type={'phone'} placeholder={"123-456-7890"} label={"Phone"} bind:value={input.phone}/>
+            <BIBinput width={100} type={'text'} placeholder={"EpicDeals@gnsf.com"} label={"E-Mail"} bind:value={input.email}/>
+            <div class=text-wrapper>
+              <textarea name="paragraph_text" cols="50" rows="10"
+              placeholder="Leave us a comment!" bind:value={input.message}></textarea>
+            </div>
+            <button class=submit on:click={()=>submitForm()}>Submit</button>
+            {#if required}
+                <p style="color: red;">A phone number or email is required</p>
+            {/if}
+            {#if success}
+                <p style="color: green;">Thank you! We will reach out to you shortly.</p>
+            {/if}
+        </div>
+    {/if}
+    <!--
+      <div class=details in:slide={{duration: 1000}} out:slide={{duration: 1000}}>
+          {#each car.details as detail}
+              <p>
+                  {detail}
+              </p>
+          {/each}
+      </div>
+    -->
 
     <div class=specs>
-        <span class=spec><h4>Vehicle Summary</h4></span>
-        <span class=spec>
-            <span class=item>
-                <p id=title>Make</p>
-                <p>{car.make}</p>
-            </span>
-            <span class=item>
-                <p id=title>Model</p>
-                <p>{car.model}</p>
-            </span>
-        </span>
-        <span class=spec>
-            <span class=item>
-                <p id=title>Mileage</p>
-                <p>{car.mileage}</p>
-            </span>
-            <span class=item>
-                <p id=title>Stock #</p>
-                <p>{car.stockNumber}</p>
-            </span>
-        </span>
-        <span class=spec>
-            <span class=item>
-                <p id=title>Year</p>
-                <p>{car.year}</p>
-            </span>
-            <span class=item>
-                <p id=title>Dealer Number</p>
-                <p>{car.dealerNumber}</p>
-            </span>
-        </span>
-        <span class=spec>
-            <span class=item>
-                <p id=title>Drive Type</p>
-                <p>{car.driveType}</p>
-            </span>
-            <span class=item>
-                <p id=title>Transmission</p>
-                <p>{car.transmissionType}</p>
-            </span>
-        </span>
-        <span class=spec>
-            <span class=item>
-                <p id=title>Doors</p>
-                <p>{car.doors}</p>
-            </span>
-            <span class=item>
-                <p id=title>Seats</p>
-                <p>{car.seats}</p>
-            </span>
-        </span>
-        <span class=spec>
-            <span class=item>
-                <p id=title>Fuel Type</p>
-                <p>{car.fuelType}</p>
-            </span>
-            <span class=item>
-                <p id=title></p>
-                <p></p>
-            </span>
-        </span>
+        <span class=spec style='text-align: center; min-width: 100%;'><h3 style='min-width:100%'>Vehicle Summary</h3></span>
+        <div class=row-wrapper>
+          {#each Object.entries(car) as [key, value], index}
+              {#if !nonDisplay.includes(key)}
+                  <span class=spec>
+                      <span class=item>
+                          <p id=title>{key.replaceAll('_', ' ')}</p>
+                          <p>{value}</p>
+                      </span>
+                  </span>
+              {/if}
+          {/each}
+        </div>
     </div>
     <!-- <button class=but on:click={()=>toggleDetails(true)}>{showDetails===true?'Less Details':'More Details'}</button> -->
 </div>
 
 <style>
+    .row-wrapper{
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      flex-direction: row;
+    }
+
+    .submit {
+      margin-top: -10px;
+      margin-bottom: 10px;
+    }
+
+    .text-wrapper {
+      width: 100%;
+      min-height: 11.5rem;
+    }
+
+    .button-wrapper{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      gap: 20px;
+      padding: 10px;
+    }
+
+    .interest-form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .img-wrapper{
+      width: 100%;
+      height: 100%;
+      min-width: 100%;
+      min-height: 100%;
+      display: flex;
+      flex-wrap: nowrap;
+      overflow: hidden;
+    }
+
+    .car-image img{
+      min-width: 100%;
+      min-height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 15px;
+    }
+
     .content{
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        gap: 20px;
+        gap: 5px;
         width: 100%;
         background-color: azure;
         color: black;
@@ -149,7 +290,7 @@
         flex-direction: column;
         align-items: flex-start;
         /* gap: 5px; */
-        padding: 10px;
+        padding: 5px;
         border-bottom: 1px solid #ccc;
         width: 100%;
     }
@@ -160,7 +301,14 @@
         text-transform: capitalize;
         display: flex;
         flex-direction: row;
-        width: 100%;
+        width: 48%;
+        border-bottom: 1px solid #ccc;
+    }
+
+    @media (max-width: 600px) {
+        .spec {
+            width: 100%;
+        }
     }
 
     #title-info {
@@ -187,7 +335,7 @@
 
     .specs span {
         font-size: 1em;
-        border-bottom: 1px solid #ccc;
+        /*border-bottom: 1px solid #ccc;*/
         /* min-width: 100%; */
     }
 

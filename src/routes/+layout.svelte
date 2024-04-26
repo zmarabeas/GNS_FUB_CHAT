@@ -4,7 +4,7 @@
     import { goto } from '$app/navigation';
     let licenseRoute = 'https://www.mvsabc.com/vsa-search/vsa-search-results/?search_type=dealer&licence=50220';
     import { page } from '$app/stores';  
-    $page.url.pathname  
+
 
     onMount(() => {
     });
@@ -12,6 +12,7 @@
     function home() {
         goto('/');
     }
+
 
 </script>
 
@@ -39,6 +40,7 @@
         <a href="/inventory">view inventory</a> -->
     </div>
 </div>
+
 
 <slot></slot>
 
