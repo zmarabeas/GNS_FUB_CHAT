@@ -92,6 +92,10 @@
     let required = false;
     let success = false;
     function submitForm() {
+        if(success) {
+            return;
+        }
+        
         input['car'] = car;
         input['url'] = car.url || 'url not found';
         input['date'] = new Date();
@@ -109,6 +113,15 @@
                 ...input
         });
     }
+
+    $: {
+        if (input.phone !== '' || input.email !== '') {
+            required = false;
+        }
+        if (!interestForm) {
+            success = false;
+        }
+      }
 </script>
 
 
