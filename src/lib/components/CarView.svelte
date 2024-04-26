@@ -150,7 +150,7 @@
         <div class=price>
             <span>{formatPrice(car.price)}</span>
         </div>
-      <button class=but id=head on:click={()=>interestForm=!interestForm}>Buy this car</button>
+      <button class=but id=head on:click={()=>interestForm=!interestForm}>Contact Us</button>
     </div>
 <!--    
 <img src={car.images[imageIndex]} alt="">
