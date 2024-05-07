@@ -182,17 +182,19 @@
         <button class=returnToTop on:click={() => headerDiv.scrollIntoView({behavior: 'smooth'})}>Return to Top</button>
     {/if} 
 
-    <div class=container>
-        {#if searchLabels.length > 0}
-          {#each sortedLabels as label}
-            <select on:change={handleSelect} id={selectedCar[label]!== ''?'selected':''} bind:value={selectedCar[label]}>
-              <option value="">{label}</option>
-              {#each searchValues[label] as value}
-                <option value={value}>{value}</option>
-              {/each}
-            </select>
-          {/each}
-        {/if}
+    <div class=label-wrapper>
+      <div class=container id='labels'>
+          {#if searchLabels.length > 0}
+            {#each sortedLabels as label}
+              <select on:change={handleSelect} id={selectedCar[label]!== ''?'selected':''} bind:value={selectedCar[label]}>
+                <option value="">{label}</option>
+                {#each searchValues[label] as value}
+                  <option value={value}>{value}</option>
+                {/each}
+              </select>
+            {/each}
+          {/if}
+      </div>
     </div>
     <div class=container>
         <button class=clear on:click={()=>selectedCar={}}>Clear Filters</button>
@@ -244,6 +246,19 @@
         padding: 20px;
     }
 
+    .label-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+
+    #labels {
+      justify-content: flex-start;
+      gap: 10px;
+    }
+
     select {
         display: flex;
         justify-content: center;
@@ -252,7 +267,7 @@
         flex-wrap: wrap;
         text-align: center;
         gap: 2px;
-        width: 20%; 
+        width: 18%; 
         text-transform: capitalize;
 
         /*styles*/
