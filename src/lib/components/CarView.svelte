@@ -129,7 +129,7 @@
     <div class=car-image>
       {#if car.images && car.images.length > 0}
           <div class=img-wrapper>
-            <img bind:this={carImage} src={car.images[0]} alt="test" fetchPriority='high'/>
+            <img bind:this={carImage} src={car.images[0]} alt="Car-Image" fetchPriority='high'/>
           </div>
           <div class=button-wrapper>
             <button style='width: 30%' on:click={()=>handleImage(car, 'prev')}>Previous</button>
