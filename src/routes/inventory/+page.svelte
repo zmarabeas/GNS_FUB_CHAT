@@ -2,6 +2,8 @@
     import { carData } from '$lib/data/cars.js';
     import CarView from '$lib/components/CarView.svelte';
 
+    import { fade } from 'svelte/transition';
+
     import { onMount } from 'svelte';
 
     import { FirebaseDB as database } from '$lib/firebase/firebase';
@@ -26,20 +28,53 @@
       });
     }
 
-/*
-    let test = {};
-    $: {
-      if (inventoryList.length > 0) {
-        test = inventoryList[0];
-        cars.push(test);
-      } 
-      console.log('wat', cars);
+    let searchLabels = [];
+    let searchValues = {};
+
+    let omittedLabels = ['images', 'imageIndex', 'body_style_name', 
+      'displayString', 'dealer_name', 'VIN', 'url', 'price', 'milage',
+      'Trim Details', 'City', 'Stock', 
+    ];
+
+    let sortedLabels = ['make', 'model', 'year', 'Body Style', 'Transmission', 
+      'Drivetrain', 'Exterior', 'Interior', 'Engine', 'Fuel type', 'trim'];
+    function getSearchLabels(car) {
+      let labels = new Set(searchLabels);
+      let values = searchValues || {};
+
+
+      
+      for(let [key, value] of Object.entries(car)) {
+        if(omittedLabels.includes(key)) {
+          continue;
+        }
+        labels.add(key);
+        if(values[key]) {
+          values[key].add(value);
+          values[key] = new Set(Array.from(values[key]).sort());
+        }else {
+          values[key] = new Set([value]);
+        }
+      }
+      searchValues = values;
+      searchLabels = Array.from(labels);
+
+      searchValues = searchValues;
+      searchLabels = searchLabels;
+
+      return {searchLabels, searchValues};
     }
-*/
 
-    //get scroll from document
-
-
+    let printThings = {};
+    $: {
+      if(inventoryList.length > 0) {
+        for(let i = 0; i < inventoryList.length; i++) {
+          let car = inventoryList[i];
+          let searchLabels = getSearchLabels(car);
+          printThings = getSearchLabels(inventoryList[0]); 
+        }
+      }
+    }
 
     let carsKey = {};
     let cars = [];
@@ -80,7 +115,58 @@
 
     onMount(() => {
       getInventory();
+
+      // get labels from inventory
     });
+
+    let headerDiv;
+
+    // object to hold the selected car
+    let selectedCar = {};
+
+    $: {
+      console.log(selectedCar);
+    }
+
+    let currentCars = [];
+    let visibleCars = [];
+
+    $: {
+      visibleCars = cars.filter(car => {
+        for(let [key, value] of Object.entries(selectedCar)) {
+          if(value && car[key] !== value) {
+            return false;
+          }
+        }
+        return true;
+      });
+
+      for(let i = 0; i < visibleCars.length; i++) {
+        // getSearchLabels(visibleCars[i]); 
+      }
+      carsKey = {};
+    }
+
+    $: {
+      if(Object.keys(selectedCar).length === 0) {
+        for (let i = 0; i < searchLabels.length; i++) {
+          selectedCar[searchLabels[i]] = '';
+        }
+      }
+    }
+
+    function handleSelect(event) {
+      visibleCars = cars.filter(car => {
+        for(let [key, value] of Object.entries(selectedCar)) {
+          if(value && car[key] !== value) {
+            return false;
+          }
+        }
+        return true;
+      });
+      carsKey = {};
+    }
+
 
 </script>
     
@@ -88,9 +174,33 @@
 <svelte:window bind:scrollY={yScroll} bind:outerWidth bind:innerWidth />
 
 <body>
+    <div class=container bind:this={headerDiv}>
+        <h1>Inventory</h1>
+    </div>
+
+    {#if yScroll > 100}
+        <button class=returnToTop on:click={() => headerDiv.scrollIntoView({behavior: 'smooth'})}>Return to Top</button>
+    {/if} 
+
+    <div class=container>
+        {#if searchLabels.length > 0}
+          {#each sortedLabels as label}
+            <select on:change={handleSelect} id={selectedCar[label]!== ''?'selected':''} bind:value={selectedCar[label]}>
+              <option value="">{label}</option>
+              {#each searchValues[label] as value}
+                <option value={value}>{value}</option>
+              {/each}
+            </select>
+          {/each}
+        {/if}
+    </div>
+    <div class=container>
+        <button class=clear on:click={()=>selectedCar={}}>Clear Filters</button>
+    </div>
+
     <div class=content bind:this={contentDiv}>
       {#key carsKey}
-        {#each cars.slice(0, numCars) as car, index}
+        {#each visibleCars as car, index}
             <div class=wrapper>
                 <CarView index={index} car={car} bind:input={userInput} />
             </div>
@@ -100,10 +210,71 @@
 </body>
 
 <style>
+  .clear {
+    max-width: 20%;
+  }
     body {
         min-height: 75vh;
     }
 
+    .returnToTop {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 15px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .container {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100vw;
+        min-width: 100vw;
+        margin: 0;
+        gap: 2px;
+        padding: 20px;
+    }
+
+    select {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        text-align: center;
+        gap: 2px;
+        width: 20%; 
+        text-transform: capitalize;
+
+        /*styles*/
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        background-color: white;
+        color: black;
+        font-size: 16px;
+        cursor: pointer;
+
+        /*mobile styles*/
+        @media only screen and (max-width: 900px) {
+            width: 45%;
+        }
+
+    }
+
+    #selected {
+      background: #2A4139;
+      color: white;
+    }
 
     .content {
         display: flex;
