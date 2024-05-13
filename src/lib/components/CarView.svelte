@@ -81,10 +81,10 @@
 //VIN: JA4T5VA91RZ602014
 //City: Cranbrook
 //url: https://www.kochgroup.ca/used/vehicle/2024-mitsubishi-outlander-phev-sel-id12851631.htm
-//displayString: 2024 Mitsubishi Outlander PHEV SEL
+//display_string: 2024 Mitsubishi Outlander PHEV SEL
 
-    let nonDisplay = ['url', 'displayString', 'images', 'body_style_name',
-      'details', 'image'];
+    let nonDisplay = ['url', 'display_string', 'images', 'body_style_name',
+      'details', 'image', 'VIN', 'Dealer Name', 'Stock', 'City', 'dealer_name'];
 
     onMount(() => {
     });
@@ -100,6 +100,7 @@
         input['url'] = car.url || 'url not found';
         input['date'] = new Date();
         input['type'] = 'inventory';
+        input['status'] = 'new';
 
         if(input.name === '' || input.phone === '' || input.email === '') {
             required = true;
@@ -139,8 +140,8 @@
       {/if}
     </div>
     <div class='main-info'>
-        {#if car.displayString}
-          <h3>{car.displayString}</h3>
+        {#if car.display_string}
+          <h3>{car.display_string}</h3>
         {:else}
           <h3>{car.make} {car.model} {car.year}</h3>
         {/if}

@@ -81,6 +81,7 @@
       tracker.name = tracker.questions[nameQ]['First Name'] + ' ' + tracker.questions[nameQ]['Last Name'];
       tracker.phone = tracker.questions[phoneQ]['Phone Number'];
       tracker.type = 'pre-approval';
+      tracker.status = 'new';
       console.log('Submitting user info: ', tracker);
       submitApplicationData(tracker);
       // writeUserData(tracker);
