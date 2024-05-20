@@ -102,7 +102,7 @@
         input['type'] = 'inventory';
         input['status'] = 'new';
 
-        if(input.name === '' || input.phone === '' || input.email === '') {
+        if(input.name === '' || (input.phone === '' && input.email === '')) {
             required = true;
             return;
         }
@@ -145,7 +145,7 @@
         {:else}
           <h3>{car.make} {car.model} {car.year}</h3>
         {/if}
-        <span id=title-info>{car.milage} km</span>
+        <span id=title-info>{car.mileage || car.milage} km</span>
     </div>
     <div class=row-container>
         <div class=price>
