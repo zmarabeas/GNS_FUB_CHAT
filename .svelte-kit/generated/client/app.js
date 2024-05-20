@@ -13,9 +13,9 @@ export const server_loads = [];
 
 export const dictionary = {
 		"/": [2],
-		"/api": [3],
-		"/api/firebaseTest": [~4],
-		"/api/twilio": [5]
+		"/application": [3],
+		"/inventory": [4],
+		"/sell-my-car": [5]
 	};
 
 export const hooks = {

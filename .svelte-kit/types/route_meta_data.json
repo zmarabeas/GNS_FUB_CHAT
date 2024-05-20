@@ -1,15 +1,5 @@
 {
 	"/": [],
-	"/api": [
-		"src/routes/api/+server.ts"
-	],
-	"/api/firebaseTest": [
-		"src/routes/api/firebaseTest/+page.server.js"
-	],
-	"/api/test": [
-		"src/routes/api/test/+server.ts"
-	],
-	"/api/twilio": [
-		"src/routes/api/twilio/+server.js"
-	]
+	"/application": [],
+	"/sell-my-car": []
 }
