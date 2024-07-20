@@ -80,9 +80,6 @@
     let cars = [];
     let contentDiv = null;
     let numCars = 10;
-    carData.forEach(car => {
-        //cars.push(car);
-    });
 
 
     // handle scroll
@@ -140,10 +137,7 @@
         }
         return true;
       });
-
-      for(let i = 0; i < visibleCars.length; i++) {
-        // getSearchLabels(visibleCars[i]); 
-      }
+      visibleCars = visibleCars.slice(0, numCars);
       carsKey = {};
     }
 
