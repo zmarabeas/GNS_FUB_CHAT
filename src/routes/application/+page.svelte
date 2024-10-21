@@ -82,6 +82,7 @@
       tracker.phone = tracker.questions[phoneQ]['Phone Number'];
       tracker.type = 'pre-approval';
       tracker.status = 'new';
+      tracker.date = new Date().toLocaleDateString();
       console.log('Submitting user info: ', tracker);
       submitApplicationData(tracker);
       // writeUserData(tracker);
